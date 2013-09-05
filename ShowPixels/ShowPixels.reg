@@ -1,0 +1,17 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+
+HKEY_CLASSES_ROOT\ShowPixels.Application = ShowPixels Application
+
+
+HKEY_CLASSES_ROOT\ShowPixels.Application\CLSID = {319858CF-0C76-40DC-A9D6-8E1A1C542E7F}
+
+HKEY_CLASSES_ROOT\CLSID\{319858CF-0C76-40DC-A9D6-8E1A1C542E7F} = ShowPixels Application
+HKEY_CLASSES_ROOT\CLSID\{319858CF-0C76-40DC-A9D6-8E1A1C542E7F}\ProgId = ShowPixels.Application
+
+
+HKEY_CLASSES_ROOT\CLSID\{319858CF-0C76-40DC-A9D6-8E1A1C542E7F}\LocalServer32 = ShowPixels.EXE

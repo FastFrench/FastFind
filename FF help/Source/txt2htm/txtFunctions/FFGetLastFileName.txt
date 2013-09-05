@@ -1,0 +1,29 @@
+###User Defined Function###
+FFGetLastFileName
+
+###Description###
+Returns the filename of the last BMP or JPG saved by FastFind.
+
+###Syntax###
+FFGetLastFileName ( )
+
+###Parameters###
+None.
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns the file name.
+Failure:	Returns an empty string.
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFSaveBMP, FFSaveJPG
+
+
+###Example###
+@@IncludeExample@@

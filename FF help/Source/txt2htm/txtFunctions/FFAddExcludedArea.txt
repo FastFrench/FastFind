@@ -1,0 +1,38 @@
+###User Defined Function###
+FFAddExcludedArea
+
+###Description###
+Adds an exclusion zone.
+
+###Syntax###
+FFAddExcludedArea ( x1, y1, x2, y2 )
+
+###Parameters###
+@@ParamTable@@
+x1
+	Left coordinate of exlusion area.
+y1
+	Top coordinate of exlusion area.
+x2
+	Right coordinate of exlusion area.
+y2
+	Bottom coordinate of exlusion area.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0
+@@End@@
+
+
+###Remarks###
+Exclusion zones are used to restrict the search area in the FastFind search functions. It is possible to have up to 1024 rectangles of exclusion, thereby precisely removing any search area. Once set, the exclusion zones will apply to all FastFind searches until they're reset.
+
+
+###Related###
+FFResetExcludedAreas, FFIsExcluded, FFNearestPixel, FFNearestSpot, FFBestSpot
+
+
+###Example###
+@@IncludeExample@@

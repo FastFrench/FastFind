@@ -1,0 +1,32 @@
+###User Defined Function###
+FFSetWnd
+
+###Description###
+Sets the current window to use.
+
+###Syntax###
+FFSetWnd ( "WindowHandle" [, ClientOnly] )
+
+###Parameters###
+@@ParamTable@@
+WindowHandle
+	The window handle to use. If windowHandle = 0, the entire screen will be used.
+ClientOnly
+	[optional] True = Only the client area of the window will be used (default).
+	False = The entire window will be used.
+@@End@@
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+This will determine the area of the screen captured by snapshots. If not set, the entire screen is used by default. Once set, snapshots will capture only the specified window until it is changed.
+
+
+###Related###
+FFSnapShot
+
+
+###Example###
+@@IncludeExample@@

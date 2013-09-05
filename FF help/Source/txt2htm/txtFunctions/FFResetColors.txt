@@ -1,0 +1,26 @@
+###User Defined Function###
+FFResetColors
+
+###Description###
+Completely empty the list of colors.
+
+###Syntax###
+FFResetColors ( )
+
+###Parameters###
+None.
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFAddColor, FFRemoveColor, FFNearestPixel, FFNearestSpot, FFBestSpot
+
+
+###Example###
+@@IncludeExample@@

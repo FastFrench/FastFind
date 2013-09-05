@@ -1,0 +1,34 @@
+###User Defined Function###
+FFDuplicateSnapShot
+
+###Description###
+Makes a copy of a SnapShot.
+
+###Syntax###
+FFDuplicateSnapShot ( NoSnapShotSrc, NoSnapShotDst )
+
+###Parameters###
+@@ParamTable@@
+NoSnapShotSrc
+	The "slot" number of the source SnapShot.
+NoSnapShotDst
+	The destination "slot" number where the duplicate SnapShot will be stored.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFSnapShot
+
+
+###Example###
+@@IncludeExample@@

@@ -1,0 +1,36 @@
+###User Defined Function###
+FFGetPixel
+
+###Description###
+Returns the color value of a specified pixel in a SnapShot.
+
+###Syntax###
+FFGetPixel ( x, y [, NoSnapShot ] )
+
+###Parameters###
+@@ParamTable@@
+x
+	X coordinate of pixel.
+y
+	Y coordinate of pixel.
+NoSnapShot
+	[optional] SnapShot number. Default is the most recent SnapShot taken.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns the color value of the pixel.
+Failure:	Returns -1 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFSnapShot, FFNearestPixel, FFNearestSpot
+
+
+###Example###
+@@IncludeExample@@

@@ -1,0 +1,50 @@
+###User Defined Function###
+FFKeepColor
+
+###Description###
+Change a SnapShot so that it keeps only the color(s) specified.
+
+###Syntax###
+FFKeepColor ( ColorToFind [, ShadeVariation [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+ColorToFind
+	Color value of pixels to keep (in decimal or hex). -1 to use the FastFind color list.
+ShadeVariation
+	[optional] A number between 0 and 255 to indicate the allowed number of shades of variation of the red, green, and blue components of the colour. Default is 0 (exact match).
+ForceNewSnap
+	[optional] If true, a new SnapShot will be made and the change will be done on that. Default is True.
+Left
+	[optional] Left coordinate of the new SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of the new SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of the new SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of the new SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the new SnapShot will be stored in.
+WindowHandle
+	[optional] Window handle to be used.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+Pixels that don't match the specified color(s) will become black. Setting the ColorToFind parameter to -1 will cause this function to match on any color in the FastFind color list.
+
+A new SnapShot will be saved in the default slot unless ForceNewSnap is set to false.
+
+
+###Related###
+FFSnapShot, FFColorCount, FFKeepChanges, FFDrawSnapShot
+
+
+###Example###
+@@IncludeExample@@

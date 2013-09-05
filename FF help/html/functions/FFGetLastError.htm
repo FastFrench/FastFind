@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Function FFGetLastError</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="../css/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Function Reference</h1>
+<font size="+1">FFGetLastError</font>
+<hr size="2">
+<p>Returns the last error message from the DLL's debug channels.<br></p>
+
+<p class="codeheader">
+FFGetLastError ( )<br>
+</p>
+<p>&nbsp;</p>
+
+<p><b>Parameters</b></p>
+None.<br>
+
+<p>&nbsp;</p>
+
+<p><b>Return Value</b></p>
+<table width="100%">
+  <tr>
+    <td width="10%" valign="top">Success:</td>
+    <td width="90%">Returns the error message.</td>
+  </tr>
+  <tr>
+    <td valign="top">Failure:</td>
+    <td>Returns an empty string and sets @ERROR</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+<p><b>Remarks</b></p>
+This function won't work if all debug options are disabled, as error strings won't be initialized.<br>
+<br>
+<p>&nbsp;</p>
+
+<p><b>Related</b></p>
+<a href="FFSetDebugMode.htm">FFSetDebugMode</a>, <a href="FFTraceError.htm">FFTraceError</a>
+<p>&nbsp;</p>
+
+</body>
+</html>

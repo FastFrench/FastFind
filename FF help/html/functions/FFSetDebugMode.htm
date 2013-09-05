@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Function FFSetDebugMode</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="../css/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Function Reference</h1>
+<font size="+1">FFSetDebugMode</font>
+<hr size="2">
+<p>Sets the types of debugging to be used.<br></p>
+
+<p class="codeheader">
+FFSetDebugMode ( DebugMode )<br>
+</p>
+<p>&nbsp;</p>
+
+<p><b>Parameters</b></p>
+<table border="1" width="100%" cellspacing="0" cellpadding="3" bordercolor="#C0C0C0">
+  <tr>
+    <td width="15%">DebugMode</td>
+    <td width="85%">Mode to use for debugging.<br>
+       Can be a combination of the following:<br>
+       &nbsp;&nbsp;0 = No debugging<br>
+       &nbsp;&nbsp;1 = Information sent to the console (RequireAdmin)<br>
+       &nbsp;&nbsp;2 = Debug information sent to a file (tracer.txt)<br>
+       &nbsp;&nbsp;4 = Graphical display of points / areas identified<br>
+       &nbsp;&nbsp;8 = Display MessageBox (blocking)<br>
+       &nbsp;&nbsp;16 = Excludes internal traces from the DLL<br>
+       &nbsp;&nbsp;32 = Excludes detailed internal traces from the DLL<br>
+       &nbsp;&nbsp;64 = Excludes external traces (from the application)<br>
+       &nbsp;&nbsp;128 = Error message (priority)</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><b>Return Value</b></p>
+None.<br>
+<p>&nbsp;</p>
+
+<p><b>Remarks</b></p>
+Note that in case of an error, a MessageBox is displayed in the DLL if DebugMode > 0. Serious errors are displayed on all available channels (file, console and MessageBox) if DebugMode > 0.<br>
+<br>
+To send information to the console in Windows Vista and Windows 7, you will need the #RequireAdmin tag in your AutoIt script.<br>
+<br>
+<p>&nbsp;</p>
+
+<p><b>Related</b></p>
+<a href="FFTrace.htm">FFTrace</a>, <a href="FFTraceError.htm">FFTraceError</a>
+<p>&nbsp;</p>
+
+<p><b>Example</b></p>
+<p class="codebox">
+<br>
+<span><span class="S11">#include</span><span class="S0"> </span><span class="S7">"FastFind.au3"</span><br>
+<span class="S11">#Include</span><span class="S0"> </span><span class="S7">&lt;WinAPI.au3&gt;</span><br>
+<br>
+<span class="S11">#RequireAdmin</span><br>
+<br>
+<span class="S0">FFSetDebugMode</span><span class="S8">(</span><span class="S3">7</span><span class="S8">)</span><span class="S0"> </span><span class="S1">; console + file + graphical</span></span><br>
+<script type="text/javascript">
+if (document.URL.match(/^mk:@MSITStore:/i))
+document.write('<br><OBJECT id=hhctrl type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" width=58 height=57><PARAM name="Command" value="ShortCut"><PARAM name="Button" value="Text:Open this Script"><PARAM name="Item1" value=",Examples\\HelpFile\\FFSetDebugMode.au3,"></OBJECT>');
+</script>
+<p>&nbsp;</p>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+###User Defined Function###
+FFSetDefaultSnapShot
+
+###Description###
+Sets the default snapshot to be used when none is specified.
+
+###Syntax###
+FFSetDefaultSnapShot ( NewSnapShot )
+
+###Parameters###
+@@ParamTable@@
+NewSnapShot
+	Snapshot number, from 0 to 1023.
+@@End@@
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+When using functions that require a snapshot and no snapshot number is specified, they will use the default snapshot. Unless changed, the default snapshot number is 0.
+
+
+###Related###
+FFSnapShot
+
+
+###Example###
+@@IncludeExample@@

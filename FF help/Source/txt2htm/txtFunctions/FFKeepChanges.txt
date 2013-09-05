@@ -1,0 +1,34 @@
+###User Defined Function###
+FFKeepChanges
+
+###Description###
+Change a SnapShot so that it keeps only the pixels that are different from another SnapShot.
+
+###Syntax###
+FFKeepChanges ( NoSnapShot1, NoSnapShot2 )
+
+###Parameters###
+@@ParamTable@@
+NoSnapShot1
+	The "slot" number of the SnapShot to change.
+NoSnapShot2
+	The "slot" number of the SnapShot to compare against.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+The first SnapShot will be modified when this function is called, changing pixels that are the same in both SnapShots to black. The second SnapShot is kept unchanged.
+
+
+###Related###
+FFSnapShot, FFIsDifferent, FFLocalizeChanges, FFKeepColor, FFDrawSnapShot
+
+
+###Example###
+@@IncludeExample@@

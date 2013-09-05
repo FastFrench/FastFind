@@ -1,0 +1,29 @@
+// ShowPixels.idl : type library source for ShowPixels.exe
+
+// This file will be processed by the MIDL compiler to produce the
+// type library (ShowPixels.tlb).
+
+[ uuid(B929829B-BF0B-43B0-AD2A-D33144DD8946), version(1.0) ]
+library ShowPixels
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	//  Primary dispatch interface for CShowPixelsDoc
+	
+	[ uuid(CE078F46-E647-4EA4-829E-47B59EFAB6F4) ]
+	dispinterface IShowPixels
+	{
+		properties:
+			
+		methods:
+	};
+
+	//  Class information for CShowPixelsDoc
+	
+	[ uuid(319858CF-0C76-40DC-A9D6-8E1A1C542E7F) ]
+	coclass ShowPixels
+	{
+		[default] dispinterface IShowPixels;
+	};
+};

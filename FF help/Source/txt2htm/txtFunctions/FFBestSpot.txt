@@ -1,0 +1,66 @@
+###User Defined Function###
+FFBestSpot
+
+###Description###
+Searches a SnapShot for the area containing the best number of pixels of the given color, closest to the given point.
+
+###Syntax###
+FFBestSpot ( SizeSearch, MinNbPixel, OptNbPixel, PosX, PosY, Color [, ShadeVariation [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+SizeSearch
+	The width and height of the area to search for.
+MinNbPixel
+	Minimum number of pixels in the area.
+OptNbPixel
+	Optimal number of pixels in the area.
+PosX
+	X coordinate of proximity position.
+PosY
+	Y coordinate of proximity position.
+Color
+	Colour value of pixel to find (in decimal or hex). -1 to use the FastFind color list.
+ShadeVariation
+	[optional] A number between 0 and 255 to indicate the allowed number of shades of variation of the red, green, and blue components of the colour. Default is 0 (exact match).
+ForceNewSnap
+	[optional] If true, a new SnapShot will be made and the search will be done on that. Default is True.
+Left
+	[optional] Left coordinate of the new SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of the new SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of the new SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of the new SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the new SnapShot will be stored in.
+WindowHandle
+	[optional] Window handle to be used.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns a three-element array of area's coordinates and number of pixels found. (Array[0] = x, Array[1] = y, Array[2] = Number of pixels found).
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+This feature is similar to FFNearestSpot, but will perform a more extensive search to try to find the area with the best number of "right" pixels.
+
+First, this function will try to find a spot with at least the optimal number of pixels of the specified color, returning the one closest to PosX, PosY. If there is no area with the optimal number of pixels (or more), it will look for the spot with the highest number of pixels of the specified color, over the minimum acceptable amount.
+
+If it cannot find an area with at least the minimum number of pixels of the specified color, it will try the same two searches again, but now with ShadeVariation as set in the parameter (if this parameter is not 0).
+
+Setting the Color parameter to -1 will cause the search to match on any color in the FastFind color list.
+
+A new SnapShot will be saved in the default slot if ForceNewSnap remains True.
+
+
+###Related###
+FFSnapShot, FFAddColor, FFAddExcludedArea, FFGetPixel, FFNearestPixel, FFNearestSpot
+
+
+###Example###
+@@IncludeExample@@

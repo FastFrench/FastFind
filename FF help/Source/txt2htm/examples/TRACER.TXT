@@ -1,0 +1,46 @@
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 10:01:02 2011
+
+           729.213µS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 10:01:54 2011
+
+           429.967µS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 10:02:08 2011
+
+           431.095µS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 22:59:48 2011
+
+             1.464mS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 23:00:35 2011
+
+             1.473mS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 23:02:44 2011
+
+             1.420mS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+             1.611mS|ChangeMode(7) => m_bDebugGraphique=1, m_DebugModeTxt=   3
+            48.247µS|This is a log message!
+            31.823µS|An error has occured!
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Tue Oct 25 23:03:07 2011
+
+             1.412mS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3
+             1.648mS|ChangeMode(7) => m_bDebugGraphique=1, m_DebugModeTxt=   3
+            53.380µS|This is a log message!
+            32.336µS|An error has occured!
+
+****************************** FastFind 1.8 (c)FastFrench 2011 ********
+		Started  Sun Jan 15 14:32:39 2012
+
+             2.066mS|ChangeMode(231) => m_bDebugGraphique=1, m_DebugModeTxt=  E3

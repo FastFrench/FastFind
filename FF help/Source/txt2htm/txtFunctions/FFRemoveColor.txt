@@ -1,0 +1,32 @@
+###User Defined Function###
+FFRemoveColor
+
+###Description###
+Remove a color from the list of colors if it exists in the list.
+
+###Syntax###
+FFRemoveColor ( OldColor )
+
+###Parameters###
+@@ParamTable@@
+OldColor
+	Color value to remove.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFAddColor, FFResetColors, FFNearestPixel, FFNearestSpot, FFBestSpot
+
+
+###Example###
+@@IncludeExample@@

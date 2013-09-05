@@ -1,0 +1,57 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=FastFind.chm
+Contents file=Table of Contents.hhc
+Default Window=Main
+Default topic=html\Introduction.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x409 Anglais (États-Unis)
+Title=FastFind Help
+
+[WINDOWS]
+Main="FastFind Help","Table of Contents.hhc","Index.hhk","html\Introduction.htm","html\Introduction.htm",,,,,0x2520,,0x204e,[90,50,1090,650],,,,,1,,0
+
+
+[FILES]
+html\images\blue_gradient_1024x24.jpg
+html\images\FindSpotExplain.png
+html\Introduction.htm
+html\functions\FFAddColor.htm
+html\functions\FFAddExcludedArea.htm
+html\functions\FFBestSpot.htm
+html\functions\FFColorCount.htm
+html\functions\FFDrawSnapShot.htm
+html\functions\FFDuplicateSnapShot.htm
+html\functions\FFGetLastError.htm
+html\functions\FFGetLastFileName.htm
+html\functions\FFGetPixel.htm
+html\functions\FFGetVersion.htm
+html\functions\FFIsDifferent.htm
+html\functions\FFIsExcluded.htm
+html\functions\FFKeepChanges.htm
+html\functions\FFKeepColor.htm
+html\functions\FFLocalizeChanges.htm
+html\functions\FFNearestPixel.htm
+html\functions\FFNearestSpot.htm
+html\functions\FFRemoveColor.htm
+html\functions\FFResetColors.htm
+html\functions\FFResetExcludedAreas.htm
+html\functions\FFSaveBMP.htm
+html\functions\FFSaveJPG.htm
+html\functions\FFSetDebugMode.htm
+html\functions\FFSetDefaultSnapShot.htm
+html\functions\FFSetPixel.htm
+html\functions\FFSetWnd.htm
+html\functions\FFSnapShot.htm
+html\functions\FFTrace.htm
+html\functions\FFTraceError.htm
+html\functions\FFDrawSnapShotXY.htm
+html\functions\FFApplyFilterOnSnapShot.htm
+html\functions\FFGetRawData.htm
+html\functions\FFComputeMeanValues.htm
+
+[INFOTYPES]
+

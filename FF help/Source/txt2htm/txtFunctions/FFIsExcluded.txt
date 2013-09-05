@@ -1,0 +1,36 @@
+###User Defined Function###
+FFIsExcluded
+
+###Description###
+Checks if the point passed as a parameter is within the current exclusion zones.
+
+###Syntax###
+FFIsExcluded ( x, y, hWnd )
+
+###Parameters###
+@@ParamTable@@
+x
+	Horizontal coordinate of point.
+y
+	Vertical coordinate of point.
+hWnd
+	Window handle.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFAddExcludedArea, FFResetExcludedAreas
+
+
+###Example###
+@@IncludeExample@@

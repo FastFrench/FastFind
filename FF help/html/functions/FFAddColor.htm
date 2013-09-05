@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Function FFAddColor</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="../css/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Function Reference</h1>
+<font size="+1">FFAddColor</font>
+<hr size="2">
+<p>Add one or more colors to the color list maintained by FastFind.<br></p>
+
+<p class="codeheader">
+FFAddColor ( NewColor )<br>
+</p>
+<p>&nbsp;</p>
+
+<p><b>Parameters</b></p>
+<table border="1" width="100%" cellspacing="0" cellpadding="3" bordercolor="#C0C0C0">
+  <tr>
+    <td width="15%">NewColor</td>
+    <td width="85%">Color value or an array of color values.</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><b>Return Value</b></p>
+<table width="100%">
+  <tr>
+    <td width="10%" valign="top">Success:</td>
+    <td width="90%">Returns 1</td>
+  </tr>
+  <tr>
+    <td valign="top">Failure:</td>
+    <td>Returns 0</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+<p><b>Remarks</b></p>
+The color list can be used when calling search functions, to search for multiple colors instead of one.<br>
+<br>
+<p>&nbsp;</p>
+
+<p><b>Related</b></p>
+<a href="FFRemoveColor.htm">FFRemoveColor</a>, <a href="FFResetColors.htm">FFResetColors</a>, <a href="FFNearestPixel.htm">FFNearestPixel</a>, <a href="FFNearestSpot.htm">FFNearestSpot</a>, <a href="FFBestSpot.htm">FFBestSpot</a>
+<p>&nbsp;</p>
+
+<p><b>Example</b></p>
+<p class="codebox">
+<br>
+<span><span class="S11">#include</span><span class="S0"> </span><span class="S7">"FastFind.au3"</span><br>
+<br>
+<span class="S5">Local</span><span class="S0"> </span><span class="S9">$aColorArray</span><span class="S8">[</span><span class="S3">2</span><span class="S8">]</span><span class="S0"> </span><span class="S8">=</span><span class="S0"> </span><span class="S8">[</span><span class="S3">0x00FFFFFF</span><span class="S8">,</span><span class="S0"> </span><span class="S3">0x00000000</span><span class="S8">]</span><br>
+<br>
+<span class="S0">FFAddColor</span><span class="S8">(</span><span class="S9">$aColorArray</span><span class="S8">)</span><br>
+<span class="S0">FFAddColor</span><span class="S8">(</span><span class="S3">0x00FF0000</span><span class="S8">)</span><br>
+<span class="S0"></span></span><br>
+<script type="text/javascript">
+if (document.URL.match(/^mk:@MSITStore:/i))
+document.write('<br><OBJECT id=hhctrl type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" width=58 height=57><PARAM name="Command" value="ShortCut"><PARAM name="Button" value="Text:Open this Script"><PARAM name="Item1" value=",Examples\\HelpFile\\FFAddColor.au3,"></OBJECT>');
+</script>
+<p>&nbsp;</p>
+
+</body>
+</html>

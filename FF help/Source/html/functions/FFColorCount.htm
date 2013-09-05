@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Function FFColorCount</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="../css/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Function Reference</h1>
+<font size="+1">FFColorCount</font>
+<hr size="2">
+<p>Counts the number of pixels of a given color in a SnapShot.<br></p>
+
+<p class="codeheader">
+FFColorCount ( ColorToCount, [ShadeVariation [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]]] )<br>
+</p>
+<p>&nbsp;</p>
+
+<p><b>Parameters</b></p>
+<table border="1" width="100%" cellspacing="0" cellpadding="3" bordercolor="#C0C0C0">
+  <tr>
+    <td width="15%">ColorToCount</td>
+    <td width="85%">Colour value of pixels to count (in decimal or hex).</td>
+  </tr>
+  <tr>
+   <td>ShadeVariation</td>
+   <td>	<b>[optional]</b> A number between 0 and 255 to indicate the allowed number of shades of variation of the red, green, and blue components of the colour. Default is 0 (exact match).</td>
+  </tr>
+  <tr>
+   <td>ForceNewSnap</td>
+   <td>	<b>[optional]</b> If true, a new SnapShot will be made and the count will be done on that. Default is True.</td>
+  </tr>
+  <tr>
+   <td>Left</td>
+   <td>	<b>[optional]</b> Left coordinate of the new SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>Top</td>
+   <td>	<b>[optional]</b> Top coordinate of the new SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>Right</td>
+   <td>	<b>[optional]</b> Right coordinate of the new SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>Bottom</td>
+   <td>	<b>[optional]</b> Bottom coordinate of the new SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>NoSnapShot</td>
+   <td>	<b>[optional]</b> SnapShot number. Determines which "slot" the new SnapShot will be stored in.</td>
+  </tr>
+  <tr>
+   <td>WindowHandle</td>
+   <td>	<b>[optional]</b> Window handle to be used.</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><b>Return Value</b></p>
+<table width="100%">
+  <tr>
+    <td width="10%" valign="top">Success:</td>
+    <td width="90%">Returns the number of matching pixels</td>
+  </tr>
+  <tr>
+    <td valign="top">Failure:</td>
+    <td>Returns False</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+<p><b>Remarks</b></p>
+None.<br>
+<br>
+<p>&nbsp;</p>
+
+<p><b>Related</b></p>
+<a href="FFSnapShot.htm">FFSnapShot</a>
+<p>&nbsp;</p>
+
+</body>
+</html>

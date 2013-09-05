@@ -1,0 +1,14 @@
+
+<span><span class="S11">#include</span><span class="S0"> </span><span class="S7">"FastFind.au3"</span>
+
+<span class="S9">$FFhWnd</span><span class="S0"> </span><span class="S8">=</span><span class="S0"> </span><span class="S4">WinGetHandle</span><span class="S8">(</span><span class="S7">"[ACTIVE]"</span><span class="S8">)</span>
+<span class="S0">FFSetWnd</span><span class="S8">(</span><span class="S9">$FFhWnd</span><span class="S8">)</span>
+<span class="S0">FFSnapShot</span><span class="S8">()</span>
+
+<span class="S5">Local</span><span class="S0"> </span><span class="S9">$aCoords</span><span class="S0"> </span><span class="S8">=</span><span class="S0"> FFNearestPixel</span><span class="S8">(</span><span class="S3">50</span><span class="S8">,</span><span class="S0"> </span><span class="S3">20</span><span class="S8">,</span><span class="S0"> </span><span class="S3">0x00FFFFFF</span><span class="S8">,</span><span class="S0"> </span><span class="S5">False</span><span class="S8">)</span>
+
+<span class="S5">If</span><span class="S0"> </span><span class="S5">Not</span><span class="S0"> </span><span class="S6">@error</span><span class="S0"> </span><span class="S5">Then</span>
+<span class="S0">&nbsp; &nbsp; </span><span class="S4">MsgBox</span><span class="S8">(</span><span class="S3">0</span><span class="S8">,</span><span class="S0"> </span><span class="S7">"Coords"</span><span class="S8">,</span><span class="S0"> </span><span class="S9">$aCoords</span><span class="S8">[</span><span class="S3">0</span><span class="S8">]</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S7">", "</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S9">$aCoords</span><span class="S8">[</span><span class="S3">1</span><span class="S8">])</span>
+<span class="S5">Else</span>
+<span class="S0">&nbsp; &nbsp; </span><span class="S4">MsgBox</span><span class="S8">(</span><span class="S3">0</span><span class="S8">,</span><span class="S0"> </span><span class="S7">"Coords"</span><span class="S8">,</span><span class="S0"> </span><span class="S7">"Match not found."</span><span class="S8">)</span>
+<span class="S5">EndIf</span></span>

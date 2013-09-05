@@ -1,0 +1,50 @@
+###User Defined Function###
+FFSnapShot
+
+###Description###
+Makes a copy of the screen, window or area in memory.
+
+###Syntax###
+FFSnapShot ( [Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+Left
+	[optional] Left coordinate of SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the SnapShot will be stored in.
+WindowHandle
+	[optional] The window handle to capture, if only interested in a particular window.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+NoSnapShot will default to the last slot written to by this function, or 0 if not previously set. The default SnapShot can be set separately with FFSetDefaultSnapShot.
+
+WindowHandle will default to the last value used, or the whole screen if not previously set. The default window handle can be set separately with FFSetWnd.
+
+If the area indicated is 0,0,0,0 then this will capture the entire window or screen.
+
+If no SnapShot exists, many other FastFind functions will either fail or automatically take a SnapShot with the default values. SnapShots are an essential part of using FastFind, so it's important to use them correctly!
+
+Warning: The use of this feature consumes memory. It takes about 1.8 MB of RAM to store a 800x600 area of the screen. Therefore, it is preferable to reuse the same SnapShot number each time. Nevertheless, it is possible to store up to 1024 SnapShots simultaneously.
+
+
+###Related###
+FFSetDefaultSnapShot, FFSetWnd, FFGetPixel, FFNearestPixel, FFNearestSpot, FFBestSpot, FFSaveBMP, FFSaveJPG, FFIsDifferent, FFLocalizeChanges, FFKeepChanges, FFKeepColor, FFDrawSnapShot, FFSetPixel, FFDuplicateSnapShot
+
+
+###Example###
+@@IncludeExample@@

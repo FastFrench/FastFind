@@ -1,0 +1,52 @@
+###User Defined Function###
+FFNearestPixel
+
+###Description###
+Searches a SnapShot for a pixel of the given color, closest to the given point.
+
+###Syntax###
+FFNearestPixel ( PosX, PosY, Color [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+PosX
+	X coordinate of proximity position.
+PosY
+	Y coordinate of proximity position.
+Color
+	Colour value of pixel to find (in decimal or hex). -1 to use the FastFind color list.
+ForceNewSnap
+	[optional] If true, a new SnapShot will be made and the search will be done on that. Default is True.
+Left
+	[optional] Left coordinate of the new SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of the new SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of the new SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of the new SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the new SnapShot will be stored in.
+WindowHandle
+	[optional] Window handle to be used.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns a two-element array of pixel's coordinates. (Array[0] = x, Array[1] = y).
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+This function works like PixelSearch, except that instead of returning the first pixel found, it returns the closest to a given position. Setting the Color parameter to -1 will cause the search to match on any color in the FastFind color list.
+
+A new SnapShot will be saved in the default slot unless ForceNewSnap is set to false.
+
+
+###Related###
+FFSnapShot, FFAddColor, FFAddExcludedArea, FFGetPixel, FFNearestSpot, FFBestSpot
+
+
+###Example###
+@@IncludeExample@@

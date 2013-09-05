@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>FastFind</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="css/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="mainheader" align="center">FastFind</div>
+<H1>Introduction</H1>
+<p>FastFind is an advanced pixel search library for AutoIt scripts. It replaces and improves upon the functionality of the standard AutoIt pixel search functions, PixelGetColor and PixelSearch, allowing for more complex searches to be performed at much faster speeds.<br/>
+<br/>
+It consists of a .dll file that contains the pixel searching logic, and an AutoIt wrapper file, which acts as an interface between your AutoIt script and the DLL. To start using FastFind, simply copy the files into the same folder as your script, and insert <span class="S11">#include</span><span class="S7"> "FastFind.au3"</span> near the top of your script file. You will then be able to reference the FastFind functions listed in this help file.</p>
+<p>&nbsp;</p>
+
+<p><strong>Required Files:</strong></p>
+<table border="0" width="100%" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="15%" class="indent">FastFind.au3</td>
+    <td width="85%" class="indent">AutoIt wrapper (include)</td>
+  </tr>
+  <tr>
+    <td class="indent">FastFind.dll</td>
+    <td class="indent">Library for 32bit systems</td>
+  </tr>
+  <tr>
+    <td class="indent">FastFind64.dll</td>
+    <td class="indent">Library for 64bit systems</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+<H1>How FastFind Works</H1>
+<p>One of the reasons FastFind is so much quicker than AutoIt's native pixel search functions is it's use of SnapShots. A SnapShot is basically a pixel map of a specified area on screen as it looked at the time the SnapShot was taken. This pixel information is stored in active memory, which means your script can access it much, <I>much</I> faster than the time it would take to make a new pixel request from the screen. Once a SnapShot is taken, search operations can be performed on that SnapShot until that memory is freed or overwritten.<br/>
+<br/>
+It is possible to retain up to 1024 different SnapShots simultaneously, but storing an 800x600 SnapShot will divert about 1.8MB of available RAM, so the size and quantity of SnapShots in use at any given time should be kept to a minimum.<br/>
+<br/>
+FastFind pixel search functions will automatically take a new SnapShot and store it in the default 'slot' when they are called, unless you specify otherwise in the function parameters. This will cause a previous SnapShot to be overwritten if it is also stored in the default 'slot'. Check the individual function help pages for more details and instructions on how to change this behavior.<br/>
+<br/>
+More advanced operations can be performed with the pixel search functions by maintaining a list of colors and exclusion zones.</p>
+</body>
+</html>
+

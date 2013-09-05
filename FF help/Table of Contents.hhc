@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="FastFind">
+		<param name="Local" value="html\Introduction.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFAddColor">
+			<param name="Local" value="html\functions\FFAddColor.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFAddExcludedArea">
+			<param name="Local" value="html\functions\FFAddExcludedArea.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFApplyFilterOnSnapShot">
+			<param name="Local" value="html\functions\FFApplyFilterOnSnapShot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFBestSpot">
+			<param name="Local" value="html\functions\FFBestSpot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFColorCount">
+			<param name="Local" value="html\functions\FFColorCount.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFComputeMeanValues">
+			<param name="Local" value="html\functions\FFComputeMeanValues.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFDrawSnapShot">
+			<param name="Local" value="html\functions\FFDrawSnapShot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFDrawSnapShotXY">
+			<param name="Local" value="html\functions\FFDrawSnapShotXY.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFDuplicateSnapShot">
+			<param name="Local" value="html\functions\FFDuplicateSnapShot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFGetLastError">
+			<param name="Local" value="html\functions\FFGetLastError.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFGetLastFileName">
+			<param name="Local" value="html\functions\FFGetLastFileName.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFGetPixel">
+			<param name="Local" value="html\functions\FFGetPixel.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFGetRawData">
+			<param name="Local" value="html\functions\FFGetRawData.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFGetVersion">
+			<param name="Local" value="html\functions\FFGetVersion.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFIsDifferent">
+			<param name="Local" value="html\functions\FFIsDifferent.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFIsExcluded">
+			<param name="Local" value="html\functions\FFIsExcluded.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFKeepChanges">
+			<param name="Local" value="html\functions\FFKeepChanges.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFKeepColor">
+			<param name="Local" value="html\functions\FFKeepColor.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFLocalizeChanges">
+			<param name="Local" value="html\functions\FFLocalizeChanges.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFNearestPixel">
+			<param name="Local" value="html\functions\FFNearestPixel.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFNearestSpot">
+			<param name="Local" value="html\functions\FFNearestSpot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFRemoveColor">
+			<param name="Local" value="html\functions\FFRemoveColor.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFResetColors">
+			<param name="Local" value="html\functions\FFResetColors.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFResetExcludedAreas">
+			<param name="Local" value="html\functions\FFResetExcludedAreas.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSaveBMP">
+			<param name="Local" value="html\functions\FFSaveBMP.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSaveJPG">
+			<param name="Local" value="html\functions\FFSaveJPG.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSetDebugMode">
+			<param name="Local" value="html\functions\FFSetDebugMode.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSetDefaultSnapShot">
+			<param name="Local" value="html\functions\FFSetDefaultSnapShot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSetPixel">
+			<param name="Local" value="html\functions\FFSetPixel.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSetWnd">
+			<param name="Local" value="html\functions\FFSetWnd.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFSnapShot">
+			<param name="Local" value="html\functions\FFSnapShot.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFTrace">
+			<param name="Local" value="html\functions\FFTrace.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="FFTraceError">
+			<param name="Local" value="html\functions\FFTraceError.htm">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY></HTML>

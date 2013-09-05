@@ -1,0 +1,41 @@
+###User Defined Function###
+FFSetDebugMode
+
+###Description###
+Sets the types of debugging to be used.
+
+###Syntax###
+FFSetDebugMode ( DebugMode )
+
+###Parameters###
+@@ParamTable@@
+DebugMode
+	Mode to use for debugging.
+	Can be a combination of the following:
+	  0 = No debugging
+	  1 = Information sent to the console (RequireAdmin)
+	  2 = Debug information sent to a file (tracer.txt)
+	  4 = Graphical display of points / areas identified
+	  8 = Display MessageBox (blocking)
+	  16 = Excludes internal traces from the DLL
+	  32 = Excludes detailed internal traces from the DLL
+	  64 = Excludes external traces (from the application)
+	  128 = Error message (priority)
+@@End@@
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+Note that in case of an error, a MessageBox is displayed in the DLL if DebugMode > 0. Serious errors are displayed on all available channels (file, console and MessageBox) if DebugMode > 0.
+
+To send information to the console in Windows Vista and Windows 7, you will need the #RequireAdmin tag in your AutoIt script.
+
+
+###Related###
+FFTrace, FFTraceError
+
+
+###Example###
+@@IncludeExample@@

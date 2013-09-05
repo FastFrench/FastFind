@@ -1,0 +1,26 @@
+###User Defined Function###
+FFResetExcludedAreas
+
+###Description###
+Clears the list of all exclusion zones.
+
+###Syntax###
+FFResetExcludedAreas ( )
+
+###Parameters###
+None.
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFAddExcludedArea, FFIsExcluded, FFNearestPixel, FFNearestSpot, FFBestSpot
+
+
+###Example###
+@@IncludeExample@@

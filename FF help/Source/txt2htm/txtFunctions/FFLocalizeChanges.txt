@@ -1,0 +1,39 @@
+###User Defined Function###
+FFLocalizeChanges
+
+###Description###
+Compares two SnapShots and specifies the number of differences, as well as the area in which they occur.
+
+###Syntax###
+FFLocalizeChanges ( NoSnapShot1, NoSnapShot2 )
+
+###Parameters###
+@@ParamTable@@
+NoSnapShot1
+	The "slot" number of the first SnapShot to compare.
+NoSnapShot2
+	The "slot" number of the second SnapShot to compare.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns a five-element array specifying the area and number of differences.
+Failure:	Returns 0 and sets @ERROR = 1
+@@End@@
+
+
+###Remarks###
+If successful, the elements of the array returned are as follows:
+[0]: left edge of the rectangle
+[1]: upper edge of the rectangle
+[2]: right edge of the rectangle
+[3]: lower edge of the rectangle
+[4]: Number of pixels that changed
+
+
+###Related###
+FFSnapShot, FFIsDifferent
+
+
+###Example###
+@@IncludeExample@@

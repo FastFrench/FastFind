@@ -1,0 +1,34 @@
+###User Defined Function###
+FFIsDifferent
+
+###Description###
+Compares two SnapShots and determines whether they have any differences.
+
+###Syntax###
+FFIsDifferent ( NoSnapShot1, NoSnapShot2 )
+
+###Parameters###
+@@ParamTable@@
+NoSnapShot1
+	The "slot" number of the first SnapShot to compare.
+NoSnapShot2
+	The "slot" number of the second SnapShot to compare.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns True
+Failure:	Returns False
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFSnapShot, FFLocalizeChanges
+
+
+###Example###
+@@IncludeExample@@

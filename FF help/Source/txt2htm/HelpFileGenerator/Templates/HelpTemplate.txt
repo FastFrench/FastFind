@@ -1,0 +1,31 @@
+###User Defined Function###
+#Function Name#
+
+###Description###
+#Description#
+
+###Syntax###
+#Syntax#
+
+###Parameters###
+@@ParamTable@@
+#Parm#
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+#Success#
+#Failure#
+@@End@@
+
+
+###Remarks###
+#Remarks#
+
+
+###Related###
+#Related#
+
+
+###Example###
+@@IncludeExample@@

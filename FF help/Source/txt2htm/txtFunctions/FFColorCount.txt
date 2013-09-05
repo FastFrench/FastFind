@@ -1,0 +1,48 @@
+###User Defined Function###
+FFColorCount
+
+###Description###
+Counts the number of pixels of a given color in a SnapShot.
+
+###Syntax###
+FFColorCount ( ColorToCount, [ShadeVariation [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+ColorToCount
+	Colour value of pixels to count (in decimal or hex).
+ShadeVariation
+	[optional] A number between 0 and 255 to indicate the allowed number of shades of variation of the red, green, and blue components of the colour. Default is 0 (exact match).
+ForceNewSnap
+	[optional] If true, a new SnapShot will be made and the count will be done on that. Default is True.
+Left
+	[optional] Left coordinate of the new SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of the new SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of the new SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of the new SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the new SnapShot will be stored in.
+WindowHandle
+	[optional] Window handle to be used.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns the number of matching pixels
+Failure:	Returns False
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+FFSnapShot
+
+
+###Example###
+@@IncludeExample@@

@@ -1,0 +1,48 @@
+###User Defined Function###
+FFSaveJPG
+
+###Description###
+Save a SnapShot to a .JPG file.
+
+###Syntax###
+FFSaveJPG ( "FileNameWithNoExtension" [, QualityFactor [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+FileNameWithNoExtension
+	Name of the file to create.
+QualityFactor
+	[optional] Quality level of the JPEG, from 1-100. Default is 85.
+ForceNewSnap
+	[optional] If true, a new SnapShot will be made and that will be saved. Default is True.
+Left
+	[optional] Left coordinate of the new SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of the new SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of the new SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of the new SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the new SnapShot will be stored in.
+WindowHandle
+	[optional] Window handle to be used.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+A new SnapShot will be saved in the default slot unless ForceNewSnap is set to false.
+
+
+###Related###
+FFSnapShot, FFSaveBMP
+
+
+###Example###
+@@IncludeExample@@

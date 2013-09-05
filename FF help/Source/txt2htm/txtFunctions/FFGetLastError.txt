@@ -1,0 +1,29 @@
+###User Defined Function###
+FFGetLastError
+
+###Description###
+Returns the last error message from the DLL's debug channels.
+
+###Syntax###
+FFGetLastError ( )
+
+###Parameters###
+None.
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns the error message.
+Failure:	Returns an empty string and sets @ERROR
+@@End@@
+
+
+###Remarks###
+This function won't work if all debug options are disabled, as error strings won't be initialized.
+
+
+###Related###
+FFSetDebugMode, FFTraceError
+
+
+###Example###
+@@IncludeExample@@

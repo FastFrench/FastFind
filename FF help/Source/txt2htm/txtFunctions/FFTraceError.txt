@@ -1,0 +1,29 @@
+###User Defined Function###
+FFTraceError
+
+###Description###
+Inserts an error message into the DLL's debug channels.
+
+###Syntax###
+FFTraceError ( "DebugString" )
+
+###Parameters###
+@@ParamTable@@
+DebugString
+	Error message to insert into debug channels.
+@@End@@
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+This works similar to FFTrace, however it will be treated as an error and appear in a MessageBox. The debug channels where this message appears will depend on the current debug mode.
+
+
+###Related###
+FFSetDebugMode, FFTrace, FFGetLastError
+
+
+###Example###
+@@IncludeExample@@

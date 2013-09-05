@@ -1,0 +1,66 @@
+###User Defined Function###
+FFNearestSpot
+
+###Description###
+Searches a SnapShot for an area containing a minimum number of pixels of the given color, closest to the given point.
+
+###Syntax###
+FFNearestSpot ( SizeSearch, NbPixel, PosX, PosY, Color [, ShadeVariation [, ForceNewSnap [, Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]]]] )
+
+###Parameters###
+@@ParamTable@@
+SizeSearch
+	The width and height of the area to search for.
+NbPixel
+	Minimum number of pixels in the area.
+PosX
+	X coordinate of proximity position.
+PosY
+	Y coordinate of proximity position.
+Color
+	Colour value of pixel to find (in decimal or hex). -1 to use the FastFind color list.
+ShadeVariation
+	[optional] A number between 0 and 255 to indicate the allowed number of shades of variation of the red, green, and blue components of the colour. Default is 0 (exact match).
+ForceNewSnap
+	[optional] If true, a new SnapShot will be made and the search will be done on that. Default is True.
+Left
+	[optional] Left coordinate of the new SnapShot area. Default is 0.
+Top
+	[optional] Top coordinate of the new SnapShot area. Default is 0.
+Right
+	[optional] Right coordinate of the new SnapShot area. Default is 0.
+Bottom
+	[optional] Bottom coordinate of the new SnapShot area. Default is 0.
+NoSnapShot
+	[optional] SnapShot number. Determines which "slot" the new SnapShot will be stored in.
+WindowHandle
+	[optional] Window handle to be used.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns a three-element array of area's coordinates and number of pixels found. (Array[0] = x, Array[1] = y, Array[2] = Number of pixels found).
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+The coordinates returned specify the barycenter (center of mass) of the area found.
+
+If more than one acceptable area exists within the SnapShot, this function will return the one closest to PosX, PosY. This is useful for finding clusters of pixels of a particular color. Setting the Color parameter to -1 will cause the search to match on any color in the FastFind color list.
+
+A new SnapShot will be saved in the default slot if ForceNewSnap remains True.
+
+
+###Related###
+FFSnapShot, FFAddColor, FFAddExcludedArea, FFGetPixel, FFNearestPixel, FFBestSpot
+
+
+###Example###
+Suppose you want to find clusters of 3 or more black pixels, in an area no bigger than 4x4, near the center of the SnapShot (SizeSearch = 4, NbPixel = 3, Color = 0x00000000).
+
+<img src="../images/NearestSpotExplain.png">
+
+In the above SnapShot, there are five possible locations that meet the criteria, however the coordinates of the green area will be returned, as it's the closest to the specified position.
+
+@@IncludeExample@@

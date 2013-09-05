@@ -1,0 +1,32 @@
+###User Defined Function###
+FFAddColor
+
+###Description###
+Add one or more colors to the color list maintained by FastFind.
+
+###Syntax###
+FFAddColor ( NewColor )
+
+###Parameters###
+@@ParamTable@@
+NewColor
+	Color value or an array of color values.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0
+@@End@@
+
+
+###Remarks###
+The color list can be used when calling search functions, to search for multiple colors instead of one.
+
+
+###Related###
+FFRemoveColor, FFResetColors, FFNearestPixel, FFNearestSpot, FFBestSpot
+
+
+###Example###
+@@IncludeExample@@

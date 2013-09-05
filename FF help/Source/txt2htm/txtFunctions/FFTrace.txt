@@ -1,0 +1,29 @@
+###User Defined Function###
+FFTrace
+
+###Description###
+Inserts text into the DLL's debug channels.
+
+###Syntax###
+FFTrace ( "DebugString" )
+
+###Parameters###
+@@ParamTable@@
+DebugString
+	String to insert into debug channels.
+@@End@@
+
+###ReturnValue###
+None.
+
+
+###Remarks###
+The debug channels where this text appears will depend on the current debug mode.
+
+
+###Related###
+FFSetDebugMode, FFTraceError
+
+
+###Example###
+@@IncludeExample@@

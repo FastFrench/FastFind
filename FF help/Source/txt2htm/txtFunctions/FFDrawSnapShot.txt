@@ -1,0 +1,32 @@
+###User Defined Function###
+FFDrawSnapShot
+
+###Description###
+Draws the SnapShot back onto the screen.
+
+###Syntax###
+FFDrawSnapShot ( [ NoSnapShot ] )
+
+###Parameters###
+@@ParamTable@@
+NoSnapShot
+	[optional] SnapShot number. Default is the most recent SnapShot taken.
+@@End@@
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns 1
+Failure:	Returns 0 and sets @ERROR
+@@End@@
+
+
+###Remarks###
+The SnapShot will be drawn on the same Window and position it was taken from, and will include modifications.
+
+
+###Related###
+FFSnapShot, FFSetPixel, FFKeepChanges, FFKeepColor
+
+
+###Example###
+@@IncludeExample@@

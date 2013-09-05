@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Function FFSnapShot</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="../css/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Function Reference</h1>
+<font size="+1">FFSnapShot</font>
+<hr size="2">
+<p>Makes a copy of the screen, window or area in memory.<br></p>
+
+<p class="codeheader">
+FFSnapShot ( [Left [, Top [, Right [, Bottom [, NoSnapShot [, WindowHandle]]]]]] )<br>
+</p>
+<p>&nbsp;</p>
+
+<p><b>Parameters</b></p>
+<table border="1" width="100%" cellspacing="0" cellpadding="3" bordercolor="#C0C0C0">
+  <tr>
+    <td width="15%">Left</td>
+    <td width="85%">	<b>[optional]</b> Left coordinate of SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>Top</td>
+   <td>	<b>[optional]</b> Top coordinate of SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>Right</td>
+   <td>	<b>[optional]</b> Right coordinate of SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>Bottom</td>
+   <td>	<b>[optional]</b> Bottom coordinate of SnapShot area. Default is 0.</td>
+  </tr>
+  <tr>
+   <td>NoSnapShot</td>
+   <td>	<b>[optional]</b> SnapShot number. Determines which "slot" the SnapShot will be stored in.</td>
+  </tr>
+  <tr>
+   <td>WindowHandle</td>
+   <td>	<b>[optional]</b> The window handle to capture, if only interested in a particular window.</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><b>Return Value</b></p>
+<table width="100%">
+  <tr>
+    <td width="10%" valign="top">Success:</td>
+    <td width="90%">Returns 1</td>
+  </tr>
+  <tr>
+    <td valign="top">Failure:</td>
+    <td>Returns 0 and sets @ERROR</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+<p><b>Remarks</b></p>
+NoSnapShot will default to the last slot written to by this function, or 0 if not previously set. The default SnapShot can be set separately with FFSetDefaultSnapShot.<br>
+<br>
+WindowHandle will default to the last value used, or the whole screen if not previously set. The default window handle can be set separately with FFSetWnd.<br>
+<br>
+If the area indicated is 0,0,0,0 then this will capture the entire window or screen.<br>
+<br>
+If no SnapShot exists, many other FastFind functions will either fail or automatically take a SnapShot with the default values. SnapShots are an essential part of using FastFind, so it's important to use them correctly!<br>
+<br>
+Warning: The use of this feature consumes memory. It takes about 1.8 MB of RAM to store a 800x600 area of the screen. Therefore, it is preferable to reuse the same SnapShot number each time. Nevertheless, it is possible to store up to 1024 SnapShots simultaneously.<br>
+<br>
+<p>&nbsp;</p>
+
+<p><b>Related</b></p>
+<a href="FFSetDefaultSnapShot.htm">FFSetDefaultSnapShot</a>, <a href="FFSetWnd.htm">FFSetWnd</a>, <a href="FFGetPixel.htm">FFGetPixel</a>, <a href="FFNearestPixel.htm">FFNearestPixel</a>, <a href="FFNearestSpot.htm">FFNearestSpot</a>, <a href="FFBestSpot.htm">FFBestSpot</a>, <a href="FFSaveBMP.htm">FFSaveBMP</a>, <a href="FFSaveJPG.htm">FFSaveJPG</a>, <a href="FFIsDifferent.htm">FFIsDifferent</a>, <a href="FFLocalizeChanges.htm">FFLocalizeChanges</a>, <a href="FFKeepChanges.htm">FFKeepChanges</a>, <a href="FFKeepColor.htm">FFKeepColor</a>, <a href="FFDrawSnapShot.htm">FFDrawSnapShot</a>, <a href="FFSetPixel.htm">FFSetPixel</a>, <a href="FFDuplicateSnapShot.htm">FFDuplicateSnapShot</a>
+<p>&nbsp;</p>
+
+<p><b>Example</b></p>
+<p class="codebox">
+<br>
+<span><span class="S11">#include</span><span class="S0"> </span><span class="S7">"FastFind.au3"</span><br>
+<br>
+<span class="S4">AutoItSetOption</span><span class="S8">(</span><span class="S7">"WinTitleMatchMode"</span><span class="S8">,</span><span class="S0"> </span><span class="S3">4</span><span class="S8">)</span><br>
+<br>
+<span class="S9">$FFhWnd</span><span class="S0"> </span><span class="S8">=</span><span class="S0"> </span><span class="S4">WinGetHandle</span><span class="S8">(</span><span class="S7">"[ACTIVE]"</span><span class="S8">)</span><br>
+<span class="S0">FFSetWnd</span><span class="S8">(</span><span class="S9">$FFhWnd</span><span class="S8">)</span><br>
+<br>
+<span class="S0">FFSnapShot</span><span class="S8">(</span><span class="S3">0</span><span class="S8">,</span><span class="S0"> </span><span class="S3">0</span><span class="S8">,</span><span class="S0"> </span><span class="S3">300</span><span class="S8">,</span><span class="S0"> </span><span class="S3">150</span><span class="S8">)</span><br>
+<span class="S0">FFSaveBMP</span><span class="S8">(</span><span class="S6">@YEAR</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S7">"-"</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S6">@MON</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S7">"-"</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S6">@MDAY</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S7">"_"</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S6">@HOUR</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S6">@MIN</span><span class="S0"> </span><span class="S8">&amp;</span><span class="S0"> </span><span class="S6">@SEC</span><span class="S8">,</span><span class="S0"> </span><span class="S5">false</span><span class="S8">)</span></span><br>
+<script type="text/javascript">
+if (document.URL.match(/^mk:@MSITStore:/i))
+document.write('<br><OBJECT id=hhctrl type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" width=58 height=57><PARAM name="Command" value="ShortCut"><PARAM name="Button" value="Text:Open this Script"><PARAM name="Item1" value=",Examples\\HelpFile\\FFSnapShot.au3,"></OBJECT>');
+</script>
+<p>&nbsp;</p>
+
+</body>
+</html>

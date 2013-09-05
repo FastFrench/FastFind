@@ -1,0 +1,28 @@
+###User Defined Function###
+FFGetVersion
+
+###Description###
+Returns the version of the FastFind DLL.
+
+###Syntax###
+FFGetVersion ( )
+
+###Parameters###
+None.
+
+###ReturnValue###
+@@ReturnTable@@
+Success:	Returns the version number.
+Failure:	Returns '???' and sets @ERROR
+@@End@@
+
+
+###Remarks###
+None.
+
+
+###Related###
+
+
+###Example###
+@@IncludeExample@@
