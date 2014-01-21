@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FastFindDLL", "FastFindDLL\FastFindDLL.vcxproj", "{665FCE36-CFC7-4E16-A978-72E983DE24E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShowPixels", "ShowPixels\ShowPixels.vcxproj", "{641EB09C-84FE-40E9-BD73-7451C5C2C497}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		DofusRelease|Win32 = DofusRelease|Win32
+		DofusRelease|x64 = DofusRelease|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Debug|Win32.ActiveCfg = Release|Win32
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Debug|Win32.Build.0 = Release|Win32
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Debug|x64.ActiveCfg = Debug|x64
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Debug|x64.Build.0 = Debug|x64
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.DofusRelease|Win32.ActiveCfg = DofusRelease|Win32
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.DofusRelease|Win32.Build.0 = DofusRelease|Win32
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.DofusRelease|x64.ActiveCfg = DofusRelease|x64
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.DofusRelease|x64.Build.0 = DofusRelease|x64
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Release|Win32.ActiveCfg = Release|Win32
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Release|Win32.Build.0 = Release|Win32
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Release|x64.ActiveCfg = Release|x64
+		{665FCE36-CFC7-4E16-A978-72E983DE24E5}.Release|x64.Build.0 = Release|x64
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.Debug|Win32.ActiveCfg = Debug|Win32
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.Debug|Win32.Build.0 = Debug|Win32
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.Debug|x64.ActiveCfg = Debug|x64
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.DofusRelease|Win32.ActiveCfg = DofusRelease|Win32
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.DofusRelease|Win32.Build.0 = DofusRelease|Win32
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.DofusRelease|x64.ActiveCfg = DofusRelease|x64
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.DofusRelease|x64.Build.0 = DofusRelease|x64
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.Release|Win32.ActiveCfg = Release|Win32
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.Release|Win32.Build.0 = Release|Win32
+		{641EB09C-84FE-40E9-BD73-7451C5C2C497}.Release|x64.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
