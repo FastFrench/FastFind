@@ -28,12 +28,12 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
    // Obtain coordinated universal time:
 		   newtime = _gmtime64( &ltime ); // C4996
-		   if (!(newtime->tm_sec & 3) && (newtime->tm_year+1900)>2010 && (newtime->tm_mon>6)) // A partir de août 2011, refuse de démarrer 1 fois sur 4
+		   if (!(newtime->tm_sec & 3) && (newtime->tm_year+1900)>2011 && (newtime->tm_mon>3)) // A partir de avril 2012, refuse de démarrer 1 fois sur 4
 			   {
 				   MessageBox(NULL, "Can't start, try again.", "Error", MB_OK|MB_ICONEXCLAMATION);
 				   return FALSE;
 				}
-		   if ((newtime->tm_sec & 3) && (newtime->tm_year+1900)>2010 && (newtime->tm_mon>7)) // A partir de septembre 2011, refuse de démarrer 3 fois sur 4
+		   if ((newtime->tm_sec & 3) && (newtime->tm_year+1900)>2011 && (newtime->tm_mon>10)) // A partir de novembre 2012, refuse de démarrer 3 fois sur 4
 			   {
 				   MessageBox(NULL, "Can't start, try again.", "Error", MB_OK|MB_ICONEXCLAMATION);
 				   return FALSE;

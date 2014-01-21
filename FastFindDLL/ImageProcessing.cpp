@@ -21,6 +21,10 @@ GNU General Public License for more details.
 //#include "PixelProcessing.h"
 #include "io.h"
 #include <Gdiplus.h>
+#include <atlimage.h>
+
+#include <Gdiplusimaging.h>
+
 
 inline COLORREF rgb_to_bgr(DWORD aRGB)
 // Fancier methods seem prone to problems due to byte alignment or compiler issues.
@@ -143,97 +147,6 @@ end:
 	return image_pixel;
 }
 
-bool WINAPI SaveBMP(int NoSnapShot, LPCSTR szFileName /* With no extension*/) 
-{
-	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("SaveBMP"))) 
-		{
-#ifdef MYTRACE
-			Tracer.Format(DEBUG_SYSTEM_ERROR, _T("SaveBMP(%d, %s) : failed as SnapShot is invalid\n"), NoSnapShot, szFileName);	
-#endif
-			return false;	
-		}
-	
-			
-	char FileName[_MAX_PATH];
-	int suffixe=0;
-	do 
-	{
-		if (suffixe++)
-			sprintf(FileName, "%s%d.bmp", szFileName, suffixe);
-		else
-			sprintf(FileName, "%s.bmp", szFileName);
-	} while (_access(FileName, 0) != -1); // loop while the file exists
-
-    //Create a new file for writing
-    FILE *pFile = fopen(FileName, "wb");
-    if(pFile == NULL)
-    {
-#ifdef MYTRACE
-		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("SaveBMP(%d, %s) failed : can't create %s\n"), NoSnapShot, szFileName, FileName);
-#endif
-        return false;
-    }
-
-#ifdef MYTRACE
-	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("SaveBMP(%d, %s) saved into %s (%s area : %d x %d)\n"), NoSnapShot, szFileName, FileName, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
-#endif
-
-	struct BITMAPINFO
-	{
-		BITMAPINFOHEADER    bmiHeader;
-		RGBQUAD             bmiColors[1];  // v1.0.40.10: 260 vs. 3 to allow room for color table when color depth is 8-bit or less.
-	} bmi;
-	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-    bmi.bmiHeader.biBitCount = 32;
-    bmi.bmiHeader.biPlanes = 1;
-    bmi.bmiHeader.biCompression = BI_RGB;	
-	bmi.bmiHeader.biWidth = ((GtSnapShotData[NoSnapShot].GetAreaWidth() + 3) & ~3);//lScreenWidth;// m_rDrawingSurface.Width();
-	//if (bmi.bmiHeader.biWidth & 1) bmi.bmiHeader.biWidth--; // On évite les dimensions impaires
-    bmi.bmiHeader.biHeight = GtSnapShotData[NoSnapShot].GetAreaHeight();
-	int NbBytesPerLigne = bmi.bmiHeader.biWidth * 4;
-		//((((bmi.bmiHeader.biWidth * bmi.bmiHeader.biBitCount) + 31) & ~31) >> 3);
-    bmi.bmiHeader.biSizeImage = NbBytesPerLigne * bmi.bmiHeader.biHeight;
-	
-	BITMAPFILEHEADER bmfh;
-	
-	
-    int nBitsOffset = sizeof(BITMAPFILEHEADER) + bmi.bmiHeader.biSize; 
-    LONG lImageSize = bmi.bmiHeader.biSizeImage;
-    LONG lFileSize = nBitsOffset + lImageSize;
-    bmfh.bfType = 'B'+('M'<<8);
-    bmfh.bfOffBits = nBitsOffset;
-    bmfh.bfSize = lFileSize;
-    bmfh.bfReserved1 = bmfh.bfReserved2 = 0;
-    //Write the bitmap file header
-    UINT nWrittenFileHeaderSize = fwrite(&bmfh, 1, 
-                    sizeof(BITMAPFILEHEADER), pFile);
-    //And then the bitmap info header
-    UINT nWrittenInfoHeaderSize = fwrite(&bmi.bmiHeader, 
-            1, sizeof(BITMAPINFOHEADER), pFile);
-    //Finally, write the image data itself 
-    //-- the data represents our drawing
-	UINT nWrittenDIBDataSize = 0;
-	// reverse line order
-	BYTE buf[10] = {0,0,0,0,0,0,0,0,0,0};
-	int MissingBytes = NbBytesPerLigne - GtSnapShotData[NoSnapShot].GetAreaWidth()*sizeof(COLORREF);
-	for (int iLigne=GtSnapShotData[NoSnapShot].lScreenHeight-1; iLigne>=0; iLigne--)
-		{
-			COLORREF *pLigne = GtSnapShotData[NoSnapShot].GetPixels()+GtSnapShotData[NoSnapShot].lScreenWidth*iLigne;
-			nWrittenDIBDataSize += fwrite(pLigne, 1, GtSnapShotData[NoSnapShot].GetAreaWidth()*sizeof(COLORREF), pFile);
-			if (MissingBytes)
-				nWrittenDIBDataSize += fwrite(buf, 1, MissingBytes, pFile);
-			//for (int iCol=0; iCol<GtSnapShotData[NoSnapShot].lScreenWidth; iCol++)
-			//	nWrittenDIBDataSize += fwrite(pLigne++, 1, 3, pFile);
-		}
-	if (nWrittenDIBDataSize!=lImageSize)
-		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("SaveBMP(%d, %s) : %d bytes saved instead of %d\n"), NoSnapShot, FileName, nWrittenDIBDataSize, lImageSize);
-
-    //UINT nWrittenDIBDataSize = 
-    //      fwrite(GtSnapShotData[NoSnapShot].GetPixels(), 1, lImageSize, pFile);
-
-    fclose(pFile);
-	return true;
-}
 
 using namespace Gdiplus;
 ULONG_PTR gdiplusToken=0; 
@@ -282,7 +195,8 @@ int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
    return -1;  // Failure
 }
 
-CLSID JPG_CLSID;
+CLSID JPG_CLSID = GUID();
+CLSID BMP_CLSID = GUID();
 
 //INT WINAPI GetEncoderClsid(const WCHAR* format, CLSID* pClsid);  // helper function
 
@@ -374,17 +288,30 @@ bool WINAPI SaveJPG(int NoSnapShot, LPCSTR szFileName /* With no extension*/, UL
 	//encoderParameters->Parameter[1].Type = EncoderParameterValueTypeLong;
 	//encoderParameters->Parameter[1].Value = &shVal;
 	
-	bool bJPG_Inited=false;
+	static bool bJPG_Inited=false;
 	if (!bJPG_Inited) 
 	{
-		GetEncoderClsid(L"image/jpeg", &JPG_CLSID); 
+		if (GetEncoderClsid(L"image/jpeg", &JPG_CLSID) < 0)
+		{
+			#ifdef MYTRACE
+			Tracer.Format(DEBUG_SYSTEM_ERROR, _T("The JPG encoder is not installed.\n"));
+			#endif
+
+			return false;
+		}
+
 		bJPG_Inited = true;
 	}
 
 	//CLSID imageCLSID;     
 	//GetEncoderClsid(L"image/jpeg", &imageCLSID); 
 	
-	bm.Save(ToWChar(FileName), &JPG_CLSID, encoderParameters);
+	if (bm.Save(ToWChar(FileName), &JPG_CLSID, encoderParameters)!= Gdiplus::Status::Ok)
+	{		
+		#ifdef MYTRACE
+		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("Failed to save Bitmap into %s (%d).\n"), szFileName, GetLastError());
+		#endif
+	}
 	delete newBuf;
 	delete encoderParameters;
 	return true;
@@ -438,3 +365,90 @@ bool WINAPI DrawSnapShot(int NoSnapShot)
 	return true;
 }
 
+bool WINAPI SaveBMP(int NoSnapShot, LPCSTR szFileName /* With no extension*/) 
+{
+	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("SaveBMP"))) 
+		{
+#ifdef MYTRACE
+			Tracer.Format(DEBUG_SYSTEM_ERROR, _T("SaveBMP(%d, %s) : failed as SnapShot is invalid\n"), NoSnapShot, szFileName);	
+#endif
+			return false;	
+		}				
+			
+	char FileName[_MAX_PATH];
+	int suffixe=0;
+	do 
+	{
+		if (suffixe++)
+			sprintf(FileName, "%s%d.bmp", szFileName, suffixe);
+		else
+			sprintf(FileName, "%s.bmp", szFileName);
+	} while (_access(FileName, 0) != -1); // loop while the file exists
+
+    //Create a new file for writing
+	FILE *pFile = fopen(FileName, "wb");
+    if(pFile == NULL)
+    {
+#ifdef MYTRACE
+		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("SaveBMP(%d, %s) failed : can't create %s\n"), NoSnapShot, szFileName, FileName);
+#endif
+        return false;
+    }
+	fclose(pFile);
+	
+	StartGDIplus();
+
+#ifdef MYTRACE
+	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("SaveBMP(%d, %s) saved into %s (%s area : %d x %d)\n"), NoSnapShot, szFileName, FileName, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
+#endif
+
+	BITMAPINFO bmi;
+	
+	COLORREF *newBuf = new COLORREF[GtSnapShotData[NoSnapShot].GetPixelCount()];
+	COLORREF *oldBuf = GtSnapShotData[NoSnapShot].GetPixels();
+	for (int iLigne=GtSnapShotData[NoSnapShot].lScreenHeight-1; iLigne>=0; iLigne--)
+		{
+			//COLORREF *pOldLigne = oldBuf+GtSnapShotData[NoSnapShot].lScreenWidth*iLigne;
+			COLORREF *pNewLigne = newBuf+GtSnapShotData[NoSnapShot].lScreenWidth*iLigne;
+			memcpy(pNewLigne, oldBuf, GtSnapShotData[NoSnapShot].lScreenWidth * sizeof(COLORREF));
+			oldBuf += GtSnapShotData[NoSnapShot].lScreenWidth;
+			//nWrittenDIBDataSize += fwrite(pLigne, 1, GtSnapShotData[NoSnapShot].lScreenWidth*sizeof(COLORREF), pFile);
+			//for (int iCol=0; iCol<GtSnapShotData[NoSnapShot].lScreenWidth; iCol++)
+			//	nWrittenDIBDataSize += fwrite(pLigne++, 1, 3, pFile);
+		}
+
+ 
+	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bmi.bmiHeader.biBitCount = 32;
+    bmi.bmiHeader.biPlanes = 1;
+    bmi.bmiHeader.biCompression = BI_RGB;
+	bmi.bmiHeader.biWidth = GtSnapShotData[NoSnapShot].GetAreaWidth();//lScreenWidth;// m_rDrawingSurface.Width();
+    bmi.bmiHeader.biHeight = GtSnapShotData[NoSnapShot].GetAreaHeight();
+    bmi.bmiHeader.biSizeImage = ((((bmi.bmiHeader.biWidth * bmi.bmiHeader.biBitCount) 
+                           + 31) & ~31) >> 3) * bmi.bmiHeader.biHeight;
+	Bitmap bm( &bmi, /*GtSnapShotData[NoSnapShot].GetPixels()*/newBuf); 
+	
+	static bool bBMP_Inited=false;
+	if (!bBMP_Inited) 
+	{
+		if (GetEncoderClsid(L"image/bmp", &BMP_CLSID)<0)
+		{
+			#ifdef MYTRACE
+			Tracer.Format(DEBUG_SYSTEM_ERROR, _T("The BMP encoder is not installed.\n"));
+			#endif
+			return false;
+		}
+		bBMP_Inited = true;
+	}
+
+	//CLSID imageCLSID;     
+	//GetEncoderClsid(L"image/jpeg", &imageCLSID); 
+	if (bm.Save(ToWChar(FileName), &BMP_CLSID) != Gdiplus::Status::Ok)
+	{		
+		#ifdef MYTRACE
+		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("Failed to save Bitmap into %s (%d).\n"), szFileName, GetLastError());
+		#endif
+	}
+	delete newBuf;
+	return true;
+}

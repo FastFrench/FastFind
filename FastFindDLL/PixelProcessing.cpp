@@ -33,11 +33,13 @@ void WINAPI AddExcludedArea(int x1, int y1, int x2, int y2)
 	GExcludedArea[GnbExludedArea][3] = y2;
 	GExcludedAreaWnd[GnbExludedArea++] = GhWnd;
 	if (Tracer.TextDebug())
-		Tracer.Format(DEBUG_STREAM_SYSTEM, _T("AddExcluded (%d,%d,%d,%d) => %d rect known\n"), x1, y1, x2, y2, GnbExludedArea);
+		Tracer.Format(DEBUG_STREAM_SYSTEM, _T("AddExcludedArea (%d,%d,%d,%d) => %d rect known\n"), x1, y1, x2, y2, GnbExludedArea);
 }
 
 void WINAPI ResetExcludedAreas()
 {
+	if (Tracer.TextDebug())
+		Tracer.Format(DEBUG_STREAM_SYSTEM, _T("The %d exclusion rectangles are removed\n"), GnbExludedArea);		
 	GnbExludedArea = 0;
 }
 
@@ -52,13 +54,16 @@ bool WINAPI IsExcluded(int x, int y, HWND hWnd)
 				 (x <= GExcludedArea[i][2]) &&
 				 (y <= GExcludedArea[i][3]) )
 			{
-				//if (Tracer.TextDebug())
-				//	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("IsExcluded(%d,%d,%8X) : inside Area(%d,%d,%d,%d) => returns true\n"), x, y, hWnd, GExcludedArea[i][0], GExcludedArea[i][1], GExcludedArea[i][2], GExcludedArea[i][3]);		
+#ifdef MYTRACE
+				if (Tracer.TextDebug())
+					Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL, _T("IsExcluded(%d,%d,%8X) : inside Area(%d,%d,%d,%d) => returns true\n"), x, y, hWnd, GExcludedArea[i][0], GExcludedArea[i][1], GExcludedArea[i][2], GExcludedArea[i][3]);		
+#endif
 				return true;
 			}
-	//if (Tracer.TextDebug())
-	//	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("IsExcluded(%d,%d,%8X) : not inside any of the %d Exluded Areas => returns false\n"), x, y, hWnd, GnbExludedArea);		
-
+#ifdef MYTRACE
+	if (Tracer.TextDebug())
+		Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL, _T("IsExcluded(%d,%d,%8X) : not inside any of the %d Exluded Areas => returns false\n"), x, y, hWnd, GnbExludedArea);		
+#endif
 	return false;
 }
 
@@ -141,7 +146,7 @@ int WINAPI RemoveColor (int NewColor)
 	for (int i=0; i<NbColors; i++)
 		if (TabColors[i]==NewColor)	{
 			if (i<(NbColors-1)) 
-				TabColors[i] = TabColors[NewColor-1];
+				TabColors[i] = TabColors[NbColors-1];
 			NbColors--;
 #ifdef MYTRACE
 			Tracer.Format(DEBUG_STREAM_SYSTEM, _T("RemoveColor(%08X) - color found, %d left\n"), NewColor, NbColors);
