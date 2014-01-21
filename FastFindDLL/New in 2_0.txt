@@ -1,0 +1,12 @@
+Function with an additionnal parameter (ShadeVariation) : 
+	KeepChanges
+	LocalizeChanges
+	HasChanged
+
+New functions : 
+	DrawSnapShotXY (same as DrawSnapShot, with specific top-left position for drawing). 	
+	ComputeMeanValues (Gives mean Red, Green and Blue values)
+	ApplyFilterOnSnapShot (apply a AND filter on each pixels in the SnapShot)
+
+
+Version is now 2.0

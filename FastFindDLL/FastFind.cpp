@@ -1,5 +1,17 @@
-// FastFind.cpp : Defines the entry point for the DLL application.
-//
+/*
+	FastFind 
+	    Copyright (c) 2010 - 2013 FastFrench (antispam@laposte.net)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+*/
 #include "stdafx.h"
 #include <time.h>
 #include <stdio.h>
@@ -17,36 +29,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 {
 	switch(ul_reason_for_call) {
 	case DLL_PROCESS_ATTACH : {
-// 			HDC hdc=GetDC(NULL);
-//  			if (hdc != 0) {
-//  				TextOut(hdc, 100, 100, "Loading FastFrench's FastFind DLL...", 36);
-//  				DeleteDC(hdc);
-//  				}
-			struct tm *newtime;
-			__int64 ltime;
-			_time64( &ltime );
-
-   // Obtain coordinated universal time:
-		   newtime = _gmtime64( &ltime ); // C4996
-		   if (!(newtime->tm_sec & 3) && (newtime->tm_year+1900)>2011 && (newtime->tm_mon>3)) // A partir de avril 2012, refuse de démarrer 1 fois sur 4
-			   {
-				   MessageBox(NULL, "Can't start, try again.", "Error", MB_OK|MB_ICONEXCLAMATION);
-				   return FALSE;
-				}
-		   if ((newtime->tm_sec & 3) && (newtime->tm_year+1900)>2011 && (newtime->tm_mon>10)) // A partir de novembre 2012, refuse de démarrer 3 fois sur 4
-			   {
-				   MessageBox(NULL, "Can't start, try again.", "Error", MB_OK|MB_ICONEXCLAMATION);
-				   return FALSE;
-				}
 			}
 		break;
 	case DLL_PROCESS_DETACH : {
 		StopGDIplus();
-// 			HDC hdc=GetDC(NULL);
-//  			if (hdc != 0) {
-//  				TextOut(hdc, 100, 150, "Bybye", 5);
-//  				DeleteDC(hdc);
-//  				}
 		}
 		break;
 	}

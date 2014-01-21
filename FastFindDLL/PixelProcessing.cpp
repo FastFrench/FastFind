@@ -1,6 +1,6 @@
 /*
 	FastFind 
-	    Copyright 2011 FastFrench (antispam@laposte.net)
+	    Copyright (c) 2010 - 2013 FastFrench (antispam@laposte.net)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -170,6 +170,7 @@ void WINAPI ResetColors ()
   ==============
  */
 _inline bool IsInShadeVariation(int PixelColor, int ColorToFind, int ShadeVariation)  {
+	       if (ShadeVariation <= 0) return PixelColor == ColorToFind;
 		   return  (abs(((int)PixelColor & 0x00FF0000) - ((int)ColorToFind & 0x00FF0000)) >> 16 <=  ShadeVariation) && 
 				   (abs(((int)PixelColor & 0x0000FF00) - ((int)ColorToFind & 0x0000FF00)) >> 8 <=  ShadeVariation) && 
 			       (abs(((int)PixelColor & 0x000000FF) - ((int)ColorToFind & 0x000000FF)) <=  ShadeVariation);
@@ -198,9 +199,9 @@ _inline bool GenericColorChecker(COLORREF PixelToCheck, int ColorToFind, int Sha
 		else
 			return FindIt(PixelToCheck, ShadeVariation);
 	else
-		if (ShadeVariation==0)
-			return PixelToCheck==ColorToFind;
-		else
+		//if (ShadeVariation==0)
+		//	return PixelToCheck==ColorToFind;
+		//else
 			return IsInShadeVariation(PixelToCheck, ColorToFind, ShadeVariation);
 }
 
@@ -217,7 +218,7 @@ int * WINAPI FFTest()
 }
 
 // Détection rapide d'un changement entre deux écrans (sans préciser l'ampleur et la localisation des changements)
-int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2)
+int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 	// Author: HasChanged By FastFrench
 {	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("HasChanged (1)"))) return 0;	
@@ -242,14 +243,15 @@ int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2)
 	LONG screen_pixel_count = GtSnapShotData[NoSnapShot].GetPixelCount();
 #ifdef MYTRACE
 	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("HasChanged(%d, %d) %ld pixels à traiter\n"), NoSnapShot, NoSnapShot2, screen_pixel_count);
-#endif				
+#endif		
+	bool bIsAnyExclusion = IsAnyExclusion();
+	
 	for (int i=0; i<screen_pixel_count; i++)
-		if (screen_pixel1[i] != screen_pixel2[i])  { // Difference detected
+		if (!IsInShadeVariation(screen_pixel1[i], screen_pixel2[i], ShadeVariation))  { // Difference detected
 			int x = i % GtSnapShotData[NoSnapShot].lScreenWidth;
 			int y = i / GtSnapShotData[NoSnapShot].lScreenWidth;
-			if (GtSnapShotData[NoSnapShot]._IsExcluded(x, y)) continue; // Dans une zone d'exclusion => on ignore ce changement
-			bool bIsAnyExclusion = IsAnyExclusion();
-	
+			if (bIsAnyExclusion && GtSnapShotData[NoSnapShot]._IsExcluded(x, y)) continue; // Dans une zone d'exclusion => on ignore ce changement
+			
 			if (Tracer.GraphicDebug()) { // Si debuggage visuel, on affiche à l'écran la zone trouvée, le point renvoyé et le point de référence fourni
 				HDC hdc = GtSnapShotData[NoSnapShot].GetDC();				
 				if (hdc) {
@@ -279,7 +281,7 @@ int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2)
 
 // Cette fonction détecte si il y eu des changements entre deux SnapShots, 
 // et précise la zone où se sont produit ces changements ainsi que le nombre de pixels affectés.
-int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin, int &xMax, int &yMax, int &nbFound)
+int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin, int &xMax, int &yMax, int &nbFound, int ShadeVariation)
 	// Author: LocalizeChanges By FastFrench
 {
 	
@@ -313,7 +315,8 @@ int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin
 	HDC hdc=0;
 	
 	for (int i=0; i<screen_pixel_count; i++)
-		if (screen_pixel1[i] != screen_pixel2[i])  { // Difference detected
+		if ( !IsInShadeVariation(screen_pixel1[i], screen_pixel2[i], ShadeVariation) )
+			{ // Difference detected
 			x = i % BufferWidth;
 			y = i / BufferWidth;
 			if (GtSnapShotData[NoSnapShot]._IsExcluded(x, y)) continue;
@@ -371,7 +374,7 @@ int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin
 
 // Cette fonction change le contenu du 1er SnapShot en fonction des changements détectés vs le 2nd
 // Chaque pixel différent prend la couleur du SnapShot N°2, les pixels identiques deviennent noir. 
-int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2)
+int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 	// Author: LocalizeChanges By FastFrench
 {	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("KeepChanges (1)"))) return 0;	
@@ -402,7 +405,7 @@ int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2)
 	HDC hdc=0;
 	
 	for (int i=0; i<screen_pixel_count; i++)
-		if (screen_pixel1[i] == screen_pixel2[i]) 
+		if (IsInShadeVariation(screen_pixel1[i], screen_pixel2[i], ShadeVariation)) 
 			screen_pixel1[i] = 0;
 		else
 		{
@@ -552,6 +555,14 @@ int WINAPI GenericColorSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &Y
 	
 	LONG BufferWidth     = GtSnapShotData[NoSnapShot].lScreenWidth, 
 		 BufferLineCount = GtSnapShotData[NoSnapShot].lScreenHeight;
+
+	if (XRef < 0 || YRef < 0 || XRef >= BufferWidth || YRef >= BufferLineCount)
+	{
+		#ifdef MYTRACE
+		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("Coordinates (%d, %d) are outside the SnapShot(%d, %d, %d, %d)\n"), XRef + GtSnapShotData[NoSnapShot].x1, YRef + GtSnapShotData[NoSnapShot].y1, GtSnapShotData[NoSnapShot].x1, GtSnapShotData[NoSnapShot].y1, GtSnapShotData[NoSnapShot].x2, GtSnapShotData[NoSnapShot].y2);
+		#endif
+		return 0;
+	}
 
 #ifdef MYTRACE
 	if (ColorToFind==-1)
@@ -900,8 +911,8 @@ int WINAPI GenericColorSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &Y
 		Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL|DEBUG_SAME_LINE, _T("(%d,%d) "), x+GtSnapShotData[NoSnapShot].x1, y+GtSnapShotData[NoSnapShot].y1);
 #endif
 						}
-		if ((NbHit < BestCount || NbHit < NbMatchMin) && bFound)
-			MessageBox(0, "Zut, y'a une couille dans le potage !", "GenericColorSearch", MB_OK); // Ce message ne devrait jamais apparaître :p
+		//if ((NbHit < BestCount || NbHit < NbMatchMin) && bFound)
+		//	MessageBox(0, "Zut, y'a une couille dans le potage !", "GenericColorSearch", MB_OK); // Ce message ne devrait jamais apparaître :p
 		//BestCount = NbHit; // NbHit peut dépasser SizeSearch * SizeSearch => on garde plutôt l'ancienne valeur
 		BestX = CumulX / NbHit;
 		BestY = CumulY / NbHit;
@@ -1076,9 +1087,9 @@ int WINAPI ColorCount(int ColorToFind, int NoSnapShot, int ShadeVariation)
 		int GreenDelta = ShadeVariation << 8;
 		int BlueDelta = ShadeVariation ;
 		for (i = 0; i < screen_pixel_count; ++i) {
-			if (   (abs((int) screen_pixel[i] & 0x00FF0000 - RedRef) <=  RedDelta) &&
-				   (abs((int) screen_pixel[i] & 0x0000FF00 - GreenRef) <=  GreenDelta) &&
-					(abs((int) screen_pixel[i] & 0x000000FF - BlueRef) <=  BlueDelta)       )					
+			if (   ((abs((int) screen_pixel[i] & 0x00FF0000) - RedRef) <=  RedDelta) &&
+				   (abs(((int) screen_pixel[i] & 0x0000FF00) - GreenRef) <=  GreenDelta) &&
+					(abs(((int) screen_pixel[i] & 0x000000FF) - BlueRef) <=  BlueDelta)       )					
 						NbFound++;
 			}
 		}
@@ -1086,6 +1097,50 @@ int WINAPI ColorCount(int ColorToFind, int NoSnapShot, int ShadeVariation)
 	Tracer.Format(DEBUG_MB_SYSTEM, _T("ColorCount(color:%06X, SnapShot:%d, ShadeVariation:%d) : %d pixels Found in %s."), ColorToFind, NoSnapShot, ShadeVariation, NbFound, GChrono.GetTime());		
 #endif
 	return NbFound;
+}
+
+int WINAPI ComputeMeanValues(int NoSnapShot, int &MeanRed, int &MeanGreen, int &MeanBlue)
+{
+	unsigned long RedCumul = 0, BlueCumul = 0, GreenCumul = 0;
+	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("MeanValues"))) return 0;	
+
+	LPCOLORREF screen_pixel = GtSnapShotData[NoSnapShot].GetPixels();
+	LONG screen_pixel_count = GtSnapShotData[NoSnapShot].GetPixelCount();
+	int i;
+#ifdef MYTRACE
+	GChrono.Restart();
+#endif	
+	for (i = 0; i < screen_pixel_count; ++i) {
+		RedCumul += ((unsigned int) screen_pixel[i] & 0x00FF0000) >> 16;
+		GreenCumul += ((unsigned int) screen_pixel[i] & 0x0000FF00) >> 8;
+		BlueCumul += ((unsigned int) screen_pixel[i] & 0x000000FF);
+		}
+#ifdef MYTRACE
+	Tracer.Format(DEBUG_MB_SYSTEM, _T("MeanValues(SnapShot:%d) : %d pixels processed in %s."), NoSnapShot, screen_pixel_count, GChrono.GetTime());		
+#endif
+	MeanRed = RedCumul / screen_pixel_count;
+	MeanGreen = GreenCumul / screen_pixel_count;
+	MeanBlue = BlueCumul / screen_pixel_count;
+	return 1;
+}
+
+int WINAPI ApplyFilterOnSnapShot(int SnapShot, int Red, int Green, int Blue)
+{
+	COLORREF Filter = ((Red & 0x000000FF)<<16) + ((Green & 0x000000FF)<<8) + (Blue & 0x000000FF);
+	if (!SnapShotData::IsSnapShotValid(SnapShot, _T("ApplyFilterOnSnapShot"))) return 0;	
+
+	LPCOLORREF screen_pixel = GtSnapShotData[SnapShot].GetPixels();
+	LONG screen_pixel_count = GtSnapShotData[SnapShot].GetPixelCount();
+	int i;
+#ifdef MYTRACE
+	GChrono.Restart();
+#endif	
+	for (i = 0; i < screen_pixel_count; ++i) 
+		screen_pixel[i] &= Filter;
+#ifdef MYTRACE
+	Tracer.Format(DEBUG_MB_SYSTEM, _T("MeanValues(ApplyFilterOnSnapShot:%d) : %d pixels processed in %s."), SnapShot, screen_pixel_count, GChrono.GetTime());		
+#endif
+	return 1;
 }
 
 

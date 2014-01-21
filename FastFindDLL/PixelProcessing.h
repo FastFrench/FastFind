@@ -1,7 +1,6 @@
 /*
-AutoHotkey
-
-Copyright 2003-2007 Chris Mallett (support@autohotkey.com)
+	FastFind 
+	    Copyright (c) 2010 - 2013 FastFrench (antispam@laposte.net)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -113,8 +112,8 @@ int WINAPI ProgressiveSearch(int SizeSearch, int &NbMatchMin, int NbMatchMax, in
 int WINAPI ColorCount(int ColorToFind, int NoSnapShot, int ShadeVariation);
 
 // Détection des changements
-int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2);
-int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin, int &xMax, int &yMax, int &nbFound);
+int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation);
+int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin, int &xMax, int &yMax, int &nbFound, int ShadeVariation);
 
 LPCTSTR WINAPI GetLastErrorMsg(void);
 LPCTSTR WINAPI FFVersion(void);
@@ -125,10 +124,11 @@ void WINAPI StopGDIplus();
 bool WINAPI SaveJPG(int NoSnapShot, LPCSTR szFileName /* With no extension*/, ULONG uQuality) ;
 int WINAPI GetLastFileSuffix();
 
-int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2);
+int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2, int ShadeVariation);
 int WINAPI KeepColor(int NoSnapShot, int ColorToFind, int ShadeVariation);
 
 bool WINAPI DrawSnapShot(int NoSnapShot);
+bool WINAPI DrawSnapShotXY(int NoSnapShot, int X, int Y);
 bool WINAPI FFSetPixel(int x, int y, int Color, int NoSnapShot);
 
 bool WINAPI DuplicateSnapShot(int Src, int Dst);
@@ -138,6 +138,10 @@ bool WINAPI FindRedCircle(int &x0, int &y0, int NoSnapShot, bool bUnchangedAreaI
 bool WINAPI FindBlueCircle(int &x0, int &y0, int NoSnapShot, bool bUnchangedAreaInBlack);
 void WINAPI setDofusDistanceMode(bool bDofusDistance);
 int Distance(int dx, int dy);
+
+int WINAPI ComputeMeanValues(int NoSnapShot, int &MeanRed, int &MeanGreen, int &MeanBlue);
+
+int WINAPI ApplyFilterOnSnapShot(int NoSnapShot, int Red, int Green, int Blue);
 
 #endif
 

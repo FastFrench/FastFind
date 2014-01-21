@@ -1,3 +1,18 @@
+/*
+	FastFind 
+	    Copyright (c) 2010 - 2013 FastFrench (antispam@laposte.net)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+*/
+
 #include "StdAfx.h"
 #include "Tracer.h"
 #include <conio.h>
@@ -8,12 +23,12 @@
 #include <sys/timeb.h>
 #include <string.h>
 
-// Objets statiques / globaux
+// Global / static objects
 CTracer Tracer;
 TCHAR CTracer::m_sErrorMsg[1024]="";
 
 
-// Classe CTracer
+// Class CTracer
 CTracer::CTracer(int DebugMode, const char* _sFileName, bool _bAppend)
 {
 	m_FichierBackup = NULL;
@@ -21,7 +36,7 @@ CTracer::CTracer(int DebugMode, const char* _sFileName, bool _bAppend)
 	Open(_sFileName, _bAppend);	
 }
 
-// Ouverture du fichier de MYTRACE, si nécessaire
+// Open the file for MYTRACE, if needed
 void CTracer::Open(const char* _sFileName, bool _bAppend)
 {
 	if (_sFileName && (DEBUG_FILE & m_DebugModeTxt))
@@ -35,7 +50,7 @@ void CTracer::Open(const char* _sFileName, bool _bAppend)
 			time( &ltime);
 
 			errno_t err = ctime_s(timebuf, 26, &ltime);
-			fprintf(m_Fichier,  _T("\n****************************** FastFind %s (c)FastFrench 2011 ********\n\t\tStarted"), FFVersion() );
+			fprintf(m_Fichier,  _T("\n****************************** FastFind %s (c)FastFrench 2013 ********\n\t\tStarted"), FFVersion() );
 			if (err)
 				fprintf(m_Fichier,  _T("\n"));
 			else
@@ -92,17 +107,17 @@ void CTracer::Format(int Filtre, const TCHAR * format, ...)
 	if ( !m_DebugModeTxt ) return; // Optimisation du fonctionnement quand le debuggage est totalement désactivé ou purement graphique
 	if ((Filtre & DEBUG_ORIGIN_BITS) & m_DebugModeTxt) return; // Filtre selon l'origine du message
 	
-	int OutModes = (Filtre & m_DebugModeTxt); // Indique les canaux retenus (choisis pour ce message et effectivement utilisés)
+	int OutModes = (Filtre & m_DebugModeTxt); // Says the chanels to use
 	
-	// Force l'utilisation de tous les canaux en cas d'erreur
+	// Force use of all chanels for errors
 	if ((Filtre & DEBUG_ERROR)>0) 
-		OutModes = DEBUG_CHANNEL_BITS; // Tous les canaux actifs
+		OutModes = DEBUG_CHANNEL_BITS; // Al chanels active 
 	
-	if (OutModes == 0) return; // Aucun canal à utiliser
+	if (OutModes == 0) return; // To chanel selected
 
 	va_list args;
 		 
-	if ((OutModes & DEBUG_FILE) && m_Fichier) { // Sortie fichier
+	if ((OutModes & DEBUG_FILE) && m_Fichier) { // File output
 		if ((Filtre & DEBUG_SAME_LINE)==0) _ftprintf(m_Fichier, "%20s|", m_Chrono.GetTime(true));
 		if (Filtre & DEBUG_MSGBOX) { // In this case, replace all \n with \t
 			TCHAR *sMsg = _tcsdup (format);
@@ -121,7 +136,7 @@ void CTracer::Format(int Filtre, const TCHAR * format, ...)
 			_vftprintf(m_Fichier, format, args);
 		}
 	}
-	if ((OutModes & DEBUG_CONSOLE)) { // Sortie Console
+	if ((OutModes & DEBUG_CONSOLE)) { // Console output
 		va_start (args, format);
 		_vtcprintf(format, args);
 	}
@@ -146,4 +161,4 @@ void WINAPI SetDebugMode(int NewMode) { Tracer.ChangeMode(NewMode);}
 void WINAPI DebugTrace(LPCTSTR  sString) { Tracer.Format(DEBUG_USER_MESSAGE, sString);}
 void WINAPI DebugError(LPCTSTR sString) { Tracer.Format(DEBUG_USER_ERROR,  sString);}
 LPCTSTR WINAPI GetLastErrorMsg(void) { return CTracer::m_sErrorMsg;}
-LPCTSTR WINAPI FFVersion(void) { return _T("1.8");}
+LPCTSTR WINAPI FFVersion(void) { return _T("2.1");}

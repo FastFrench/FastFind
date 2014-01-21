@@ -1,10 +1,10 @@
 /*
-Base utilisée : 
-	la fonction getbits vient d'ImageSearch:
+Credits : 
+	getbits function comes from d'ImageSearch:
 		Copyright 2003-2007 Chris Mallett (support@autohotkey.com)
 		DLL conversion 2008: kangkengkingkong@hotmail.com
 
-All other parts are from FastFrench (c) 2011 FastFrench (antispam@laposte.net)
+All other parts are from FastFrench Copyright (c) 2010 - 2013 FastFrench (antispam@laposte.net)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -317,22 +317,9 @@ bool WINAPI SaveJPG(int NoSnapShot, LPCSTR szFileName /* With no extension*/, UL
 	return true;
 }
 
-bool WINAPI DrawSnapShot(int NoSnapShot) 
-{
-	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("DrawSnapShot"))) 
-		{
-#ifdef MYTRACE
-			Tracer.Format(DEBUG_STREAM_SYSTEM, _T("DrawSnapShot(%d) failed - (%s area : %d x %d)\n"), NoSnapShot, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
-#endif
-			return false;	
-		}
-	
-			
+bool InternalDrawSnapShotXY(HDC hdc, int NoSnapShot, int X, int Y) 
+{			
 	StartGDIplus();
-
-#ifdef MYTRACE
-	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("DrawSnapShot(%d) - (%s area : %d x %d)\n"), NoSnapShot, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
-#endif
 
 	BITMAPINFO bmi;
 	
@@ -348,7 +335,6 @@ bool WINAPI DrawSnapShot(int NoSnapShot)
 			//for (int iCol=0; iCol<GtSnapShotData[NoSnapShot].lScreenWidth; iCol++)
 			//	nWrittenDIBDataSize += fwrite(pLigne++, 1, 3, pFile);
 		}
-
  
 	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     bmi.bmiHeader.biBitCount = 32;
@@ -359,10 +345,46 @@ bool WINAPI DrawSnapShot(int NoSnapShot)
     bmi.bmiHeader.biSizeImage = ((((bmi.bmiHeader.biWidth * bmi.bmiHeader.biBitCount) 
                            + 31) & ~31) >> 3) * bmi.bmiHeader.biHeight;
 	Bitmap bm( &bmi, /*GtSnapShotData[NoSnapShot].GetPixels()*/newBuf); 
-	Gdiplus::Graphics graphics(GtSnapShotData[NoSnapShot].GetDC());
-	graphics.DrawImage(&bm, GtSnapShotData[NoSnapShot].x1, GtSnapShotData[NoSnapShot].y1);
+	Gdiplus::Graphics graphics(hdc);
+	graphics.DrawImage(&bm, X, Y);
 	delete newBuf;
 	return true;
+}
+
+bool WINAPI DrawSnapShotXY(int NoSnapShot, int X, int Y) 
+{
+	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("DrawSnapShotXY"))) 
+		{
+#ifdef MYTRACE
+			Tracer.Format(DEBUG_STREAM_SYSTEM, _T("DrawSnapShotXY(%d, %d, %d) failed - (%s area : %d x %d)\n"), NoSnapShot, X, Y, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
+#endif
+			return false;	
+		}
+#ifdef MYTRACE
+	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("DrawSnapShotXY(%d, %d, %d) - (%s area : %d x %d)\n"), NoSnapShot, X, Y, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
+#endif
+	
+	HDC dc = GetDC(GetDesktopWindow());
+	bool result = InternalDrawSnapShotXY(GetDC(0), NoSnapShot, X, Y);
+	::ReleaseDC(GetDesktopWindow(), dc);
+	return result;
+}
+bool WINAPI DrawSnapShot(int NoSnapShot) 
+{
+	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("DrawSnapShot"))) 
+		{
+#ifdef MYTRACE
+			Tracer.Format(DEBUG_STREAM_SYSTEM, _T("DrawSnapShot(%d) failed - (%s area : %d x %d)\n"), NoSnapShot, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
+#endif
+			return false;	
+		}
+#ifdef MYTRACE
+	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("DrawSnapShot(%d) - (%s area : %d x %d)\n"), NoSnapShot, GtSnapShotData[NoSnapShot].bClientArea?"Client":"full", GtSnapShotData[NoSnapShot].GetAreaWidth(), GtSnapShotData[NoSnapShot].GetAreaHeight());
+#endif
+	HDC dc = GtSnapShotData[NoSnapShot].GetDC();
+	bool result = InternalDrawSnapShotXY(dc, NoSnapShot, GtSnapShotData[NoSnapShot].x1, GtSnapShotData[NoSnapShot].y1);
+	GtSnapShotData[NoSnapShot].ReleaseDC(dc);
+	return result;
 }
 
 bool WINAPI SaveBMP(int NoSnapShot, LPCSTR szFileName /* With no extension*/) 

@@ -239,7 +239,7 @@
       <MinimumRequiredVersion>5.0</MinimumRequiredVersion>
     </Link>
     <PostBuildEvent>
-      <Command>cmd /c "copy $(CodeAnalysisInputAssembly) $(ProjectDir)..\..\"</Command>
+      <Command>cmd /c "copy /V /Y "$(CodeAnalysisInputAssembly)" "$(ProjectDir)..\..\""</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -328,7 +328,7 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cmd /c "copy $(CodeAnalysisInputAssembly) $(ProjectDir)..\..\"</Command>
+      <Command>cmd /c "copy /V /Y "$(CodeAnalysisInputAssembly)" "$(ProjectDir)..\..\""</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DofusRelease|x64'">
@@ -384,7 +384,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DofusSpecific.cpp" />
+    <ClCompile Include="Specific.cpp" />
     <ClCompile Include="FastFind.cpp" />
     <ClCompile Include="HiResTimer.cpp" />
     <ClCompile Include="ImageProcessing.cpp" />

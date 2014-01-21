@@ -1,7 +1,22 @@
+/*
+	FastFind 
+	    Copyright (c) 2010 - 2013 FastFrench (antispam@laposte.net)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+*/
+
 #include "stdafx.h" // pre-compiled headers
 
 
-// SnapShotData : Classe gérant les captures d'écrans en mémoire
+// SnapShotData : This class lanages screen captures in memory
 //
 SnapShotData GtSnapShotData[NB_SNAP_SHOT_MAX];
 bool SnapShotData::bIsScreen16Bits = false;// Capture d'un écran ayant 16 bits / pixel (variable static)
