@@ -161,4 +161,4 @@ void WINAPI SetDebugMode(int NewMode) { Tracer.ChangeMode(NewMode);}
 void WINAPI DebugTrace(LPCTSTR  sString) { Tracer.Format(DEBUG_USER_MESSAGE, sString);}
 void WINAPI DebugError(LPCTSTR sString) { Tracer.Format(DEBUG_USER_ERROR,  sString);}
 LPCTSTR WINAPI GetLastErrorMsg(void) { return CTracer::m_sErrorMsg;}
-LPCTSTR WINAPI FFVersion(void) { return _T("2.1");}
+LPCTSTR WINAPI FFVersion(void) { return _T("2.2");}

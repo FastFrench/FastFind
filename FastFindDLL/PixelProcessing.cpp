@@ -223,10 +223,14 @@ int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 {	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("HasChanged (1)"))) return 0;	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot2, _T("HasChanged (2)"))) return 0;	
-	if ( GtSnapShotData[NoSnapShot].x1 != GtSnapShotData[NoSnapShot2].x1 ||
-		 GtSnapShotData[NoSnapShot].x2 != GtSnapShotData[NoSnapShot2].x2 ||
-		 GtSnapShotData[NoSnapShot].y1 != GtSnapShotData[NoSnapShot2].y1 ||
-		 GtSnapShotData[NoSnapShot].y2 != GtSnapShotData[NoSnapShot2].y2 )
+	SnapShotData snapShot = GtSnapShotData[NoSnapShot];
+	SnapShotData snapShot2 = GtSnapShotData[NoSnapShot2];
+	if ( snapShot.lScreenWidth == 0 ) return 0;
+
+	if ( snapShot.x1 != snapShot2.x1 ||
+		 snapShot.x2 != snapShot2.x2 ||
+		 snapShot.y1 != snapShot2.y1 ||
+		 snapShot.y2 != snapShot2.y2 )
 	{
 #ifdef MYTRACE
 		Tracer.Format(DEBUG_SYSTEM_ERROR, _T("HasChanged : Position or size of the two SnapShots is not the same\n"));
@@ -238,9 +242,9 @@ int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 	GChrono.Restart();
 #endif
 	bool bFound = false;
-	LPCOLORREF	screen_pixel1 = GtSnapShotData[NoSnapShot].SnapShotPixels,
-				screen_pixel2 = GtSnapShotData[NoSnapShot2].SnapShotPixels;
-	LONG screen_pixel_count = GtSnapShotData[NoSnapShot].GetPixelCount();
+	LPCOLORREF	screen_pixel1 = snapShot.SnapShotPixels,
+				screen_pixel2 = snapShot2.SnapShotPixels;
+	LONG screen_pixel_count = snapShot.GetPixelCount();
 #ifdef MYTRACE
 	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("HasChanged(%d, %d) %ld pixels à traiter\n"), NoSnapShot, NoSnapShot2, screen_pixel_count);
 #endif		
@@ -248,12 +252,12 @@ int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 	
 	for (int i=0; i<screen_pixel_count; i++)
 		if (!IsInShadeVariation(screen_pixel1[i], screen_pixel2[i], ShadeVariation))  { // Difference detected
-			int x = i % GtSnapShotData[NoSnapShot].lScreenWidth;
-			int y = i / GtSnapShotData[NoSnapShot].lScreenWidth;
-			if (bIsAnyExclusion && GtSnapShotData[NoSnapShot]._IsExcluded(x, y)) continue; // Dans une zone d'exclusion => on ignore ce changement
+			int x = i % snapShot.lScreenWidth;
+			int y = i / snapShot.lScreenWidth;
+			if (bIsAnyExclusion && snapShot._IsExcluded(x, y)) continue; // Dans une zone d'exclusion => on ignore ce changement
 			
 			if (Tracer.GraphicDebug()) { // Si debuggage visuel, on affiche à l'écran la zone trouvée, le point renvoyé et le point de référence fourni
-				HDC hdc = GtSnapShotData[NoSnapShot].GetDC();				
+				HDC hdc = snapShot.GetDC();				
 				if (hdc) {
 					HGDIOBJ hOldPen = ::SelectObject( hdc, ::GetStockObject(DC_PEN));
 					::SetDCPenColor(hdc, RGB(255,0,0));
@@ -265,7 +269,7 @@ int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 								y +6);
 					::SelectObject( hdc, hOldPen);
 					::SelectObject(hdc, hOldBrush);
-					GtSnapShotData[NoSnapShot].ReleaseDC(hdc);
+					snapShot.ReleaseDC(hdc);
 					}
 				}
 #ifdef MYTRACE
@@ -287,6 +291,9 @@ int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin
 	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("DetectChanges (1)"))) return 0;	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot2, _T("DetectChanges (2)"))) return 0;	
+	SnapShotData snapShot = GtSnapShotData[NoSnapShot];
+	SnapShotData snapShot2 = GtSnapShotData[NoSnapShot2];
+	
 	if (GtSnapShotData[NoSnapShot].x1   != GtSnapShotData[NoSnapShot2].x1 ||
 		GtSnapShotData[NoSnapShot].x2   != GtSnapShotData[NoSnapShot2].x2 ||
 		GtSnapShotData[NoSnapShot].y1   != GtSnapShotData[NoSnapShot2].y1 ||
@@ -307,6 +314,7 @@ int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin
 				screen_pixel2 = GtSnapShotData[NoSnapShot2].SnapShotPixels;
 	LONG	BufferWidth = GtSnapShotData[NoSnapShot].lScreenWidth;
 	LONG screen_pixel_count = GtSnapShotData[NoSnapShot].GetPixelCount();
+	if (BufferWidth == 0) return 0;
 #ifdef MYTRACE
 	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("LocalizeChanges(%d, %d) %ld pixels to process\n"), NoSnapShot, NoSnapShot2, screen_pixel_count);
 #endif	
@@ -396,7 +404,6 @@ int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2, int ShadeVariation)
 	int nbFound = 0; 
 	LPCOLORREF	screen_pixel1 = GtSnapShotData[NoSnapShot].SnapShotPixels,
 				screen_pixel2 = GtSnapShotData[NoSnapShot2].SnapShotPixels;
-	LONG	BufferWidth = GtSnapShotData[NoSnapShot].lScreenWidth;
 	LONG screen_pixel_count = GtSnapShotData[NoSnapShot].GetPixelCount();
 #ifdef MYTRACE
 	Tracer.Format(DEBUG_STREAM_SYSTEM, _T("KeepChanges(%d, %d) %ld pixels to process\n"), NoSnapShot, NoSnapShot2, screen_pixel_count);
@@ -889,7 +896,7 @@ int WINAPI GenericColorSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &Y
 	// et on cherche précisément le "centre de gravité" des points ayant la couleur voulue. 
 	BestX -= SizeSearch/2;
 	BestY += SizeSearch/2;
-	if (BestCount>0 && SizeSearch>1) { // Cas d'une recherche sur un seul pixel 
+	if (BestCount>0 && SizeSearch>1) { // Cas d'une recherche sur plusieurs pixels 
 		int x1 = max(0, BestX - SizeSearch/2 -2);
 		int x2 = min(search_width-1, BestX + SizeSearch/2 +2);
 		int y1 = max(0,  BestY - SizeSearch/2 -2);
@@ -914,8 +921,13 @@ int WINAPI GenericColorSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &Y
 		//if ((NbHit < BestCount || NbHit < NbMatchMin) && bFound)
 		//	MessageBox(0, "Zut, y'a une couille dans le potage !", "GenericColorSearch", MB_OK); // Ce message ne devrait jamais apparaître :p
 		//BestCount = NbHit; // NbHit peut dépasser SizeSearch * SizeSearch => on garde plutôt l'ancienne valeur
-		BestX = CumulX / NbHit;
-		BestY = CumulY / NbHit;
+		if (NbHit > 0)
+		{
+			BestX = CumulX / NbHit;
+			BestY = CumulY / NbHit;
+			if (NbHit > BestCount)
+				BestCount = NbHit;
+		}
 #ifdef MYTRACE
 		Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL, _T(" => %d pixels, center (%d,%d)\n\n"), NbHit, BestX+GtSnapShotData[NoSnapShot].x1, BestY+GtSnapShotData[NoSnapShot].y1);
 #endif
@@ -1106,6 +1118,8 @@ int WINAPI ComputeMeanValues(int NoSnapShot, int &MeanRed, int &MeanGreen, int &
 
 	LPCOLORREF screen_pixel = GtSnapShotData[NoSnapShot].GetPixels();
 	LONG screen_pixel_count = GtSnapShotData[NoSnapShot].GetPixelCount();
+	if (screen_pixel_count == 0) return 0;
+
 	int i;
 #ifdef MYTRACE
 	GChrono.Restart();
