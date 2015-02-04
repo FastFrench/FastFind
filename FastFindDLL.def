@@ -26,7 +26,7 @@ EXPORTS
 	HasChanged
 
 	FFGetPixel
-	
+
 	AddColor
 	RemoveColor
 	ResetColors
@@ -36,6 +36,8 @@ EXPORTS
 	SaveBMP
 	SaveJPG
 	GetLastFileSuffix
+	LoadFromFile
+	GetLastFileName
 
 	KeepChanges
 	KeepColor

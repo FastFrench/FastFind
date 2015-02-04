@@ -59,9 +59,9 @@ LRESULT CALLBACK LowLevelMouseProc(
 		{
 			MSLLHOOKSTRUCT *pMouseStruct = (MSLLHOOKSTRUCT *)lParam;
 			//if (wParam==WM_LBUTTONDOWN)
-			//	TRACE("Left Mouse Down in (%d,%d)\n",pMouseStruct->pt.x, pMouseStruct->pt.y);
+			//	TRACE(L"Left Mouse Down in (%d,%d)\n",pMouseStruct->pt.x, pMouseStruct->pt.y);
 			//else
-			//	TRACE("Right Mouse Down in (%d,%d)\n",pMouseStruct->pt.x, pMouseStruct->pt.y);
+			//	TRACE(L"Right Mouse Down in (%d,%d)\n",pMouseStruct->pt.x, pMouseStruct->pt.y);
 			if (pClass)
 				pClass->CShowPixelsDlg::OnBnClickedButtonXnEnd(&pMouseStruct->pt);
 

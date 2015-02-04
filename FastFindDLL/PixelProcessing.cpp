@@ -114,7 +114,7 @@ void WINAPI SetHWnd(HWND NewWindowHandle, bool bClientOnly) {
 		else
 			::GetWindowRect(GhWnd, &rParent);
 	
-		char sTitle[128];
+		TCHAR sTitle[128];
 		::GetWindowText(GhWnd, sTitle, 128);
 		Tracer.Format(DEBUG_MB_SYSTEM, _T("SetHWnd(%8X) => Window position (Title:%s) = (%d, %d, %d, %d)\n"), GhWnd, sTitle, rParent.left, rParent.top, rParent.right, rParent.bottom);	
 		}
@@ -464,7 +464,7 @@ int WINAPI FFGetPixel(int X, int Y, int NoSnapShot) {
 	//char msg[256];
 	//sprintf(msg,"Entrée dans GetPixel(%d,%d, %d)\n", X, Y, NoSnapShot);
 	//Tracer.Format(DEBUG_STREAM_SYSTEM, msg);		
-	//MessageBox(NULL, msg, "GetPixel", MB_OK);
+	//MessageBox(NULL, msg, L"GetPixel", MB_OK);
 	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("FFGetPixel")) || !GtSnapShotData[NoSnapShot].IsInSnapShot(X,Y)) 
 		{
@@ -485,7 +485,7 @@ bool WINAPI FFSetPixel(int X, int Y, int Color, int NoSnapShot) {
 	//char msg[256];
 	//sprintf(msg,"Entrée dans GetPixel(%d,%d, %d)\n", X, Y, NoSnapShot);
 	//Tracer.Format(DEBUG_STREAM_SYSTEM, msg);		
-	//MessageBox(NULL, msg, "GetPixel", MB_OK);
+	//MessageBox(NULL, msg, L"GetPixel", MB_OK);
 	
 	if (!SnapShotData::IsSnapShotValid(NoSnapShot, _T("FFSetPixel")) || !GtSnapShotData[NoSnapShot].IsInSnapShot(X,Y)) 
 		{
@@ -802,7 +802,7 @@ int WINAPI GenericColorSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &Y
 							BestCount = NbCurCountTot;
 #ifdef MYTRACE
 /*							if (Tracer.TextDebug()) {
-								Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL, _T("Inside GenericColorSearch Spot Found : bFound:%d X:%d, Y:%d, Count:%d ("), bFound, x, y, NbCurCountTot);
+								Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL, _T("Inside GenericColorSearch Spot Found : bFound:%d X:%d, Y:%d, Count:%d (L"), bFound, x, y, NbCurCountTot);
 								for (int xxx=x+1-SizeSearch; xxx<=x; xxx++)
 									Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL|DEBUG_SAME_LINE, _T("%d%c"),  pBufOpt[xxx], xxx<x?',':')');
 								Tracer.Format(DEBUG_STREAM_SYSTEM_DETAIL|DEBUG_SAME_LINE, _T(", MinCount:%d\n"), NbMatchMin);
@@ -919,7 +919,7 @@ int WINAPI GenericColorSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &Y
 #endif
 						}
 		//if ((NbHit < BestCount || NbHit < NbMatchMin) && bFound)
-		//	MessageBox(0, "Zut, y'a une couille dans le potage !", "GenericColorSearch", MB_OK); // Ce message ne devrait jamais apparaître :p
+		//	MessageBox(0, L"Zut, y'a une couille dans le potage !", L"GenericColorSearch", MB_OK); // Ce message ne devrait jamais apparaître :p
 		//BestCount = NbHit; // NbHit peut dépasser SizeSearch * SizeSearch => on garde plutôt l'ancienne valeur
 		if (NbHit > 0)
 		{
@@ -1031,7 +1031,7 @@ int WINAPI ProgressiveSearch(int SizeSearch, int &NbMatchMin, int NbMatchMax, in
 	GenericColorSearch(SizeSearch, NbPixel, XRef, YRef, ColorToFind, ShadeVariation, NoSnapShot); // On recherche tout d'abord sans ShadeVariation
 	if (NbPixel>NbMatchMin)
 	{
-		//MessageBox(0,"OK: found", "After Generic", MB_OK);
+		//MessageBox(0,"OK: found", L"After Generic", MB_OK);
 
 #ifdef MYTRACE
 		Tracer.Format(DEBUG_MB_SYSTEM, _T("ProgressiveSearch (SpotSize:%d, MinPixels:%d, OptPixels:%d, XRef:%d, YRef:%d, Color:%6X (%d in list), ShadeVariation:%d, NoSnapShot:%d): Spot found \n\t\t(X,Y)=(%d,%d), NbPixels=%d\n\nTotal processing time: %s\n"), SizeSearch, NbMatchMin, NbMatchMax, XRef, YRef, ColorToFind, NbColors, ShadeVariation, NoSnapShot, XRef, YRef, NbPixel, GChrono.GetTime());
@@ -1040,7 +1040,7 @@ int WINAPI ProgressiveSearch(int SizeSearch, int &NbMatchMin, int NbMatchMax, in
 		return 1;
 	}
 	// Echec
-	//MessageBox(0,"OK: Not Found", "After Generic", MB_OK);
+	//MessageBox(0,"OK: Not Found", L"After Generic", MB_OK);
 #ifdef MYTRACE
 	Tracer.Format(DEBUG_MB_SYSTEM, _T("ProgressiveSearch (SpotSize:%d, MinPixels:%d, OptPixels:%d, XRef:%d, YRef:%d, Color:%6X (%d in list), ShadeVariation:%d, NoSnapShot:%d): Spot NOT found \n\t\tBest spot : (X,Y)=(%d,%d), NbPixels=%d\n\nTotal processing time: %s\n"), SizeSearch, NbMatchMin, NbMatchMax, XRef, YRef, ColorToFind, NbColors, ShadeVariation, NoSnapShot, XRef, YRef, NbPixel, GChrono.GetTime());
 #endif	
@@ -1065,7 +1065,7 @@ int WINAPI ColorsSearch(int SizeSearch, int &NbMatchMin, int &XRef, int &YRef, i
 
 /*
  * Appel en AutoIt : 
- *    $Result = DllCall("FastFind.dll", "int", "ColorCount", "int", $Left, "int", $Top, "int", $Right, "int", $Bottom, "int", $ColorToCount, "int", $ShadeVariation) 
+ *    $Result = DllCall(L"FastFind.dll", L"int", L"ColorCount", L"int", $Left, L"int", $Top, L"int", $Right, L"int", $Bottom, L"int", $ColorToCount, L"int", $ShadeVariation) 
  *    If (Not IsArray($Result)) Return $Result;
  *    Return $Result[0];
  */

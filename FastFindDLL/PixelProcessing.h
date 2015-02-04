@@ -115,14 +115,16 @@ int WINAPI ColorCount(int ColorToFind, int NoSnapShot, int ShadeVariation);
 int WINAPI HasChanged(int NoSnapShot, int NoSnapShot2, int ShadeVariation);
 int WINAPI LocalizeChanges(int NoSnapShot, int NoSnapShot2, int &xMin, int &yMin, int &xMax, int &yMax, int &nbFound, int ShadeVariation);
 
-LPCTSTR WINAPI GetLastErrorMsg(void);
-LPCTSTR WINAPI FFVersion(void);
+LPCWSTR WINAPI GetLastErrorMsg(void);
+LPCWSTR WINAPI FFVersion(void);
 
-bool WINAPI SaveBMP(int NoSnapShot, LPCSTR szFileName /* With no extension (xxx.bmp added)*/);
+bool WINAPI SaveBMP(int NoSnapShot, LPCWSTR szFileName /* With no extension (xxx.bmp added)*/);
 void WINAPI StartGDIplus();
 void WINAPI StopGDIplus();
-bool WINAPI SaveJPG(int NoSnapShot, LPCSTR szFileName /* With no extension*/, ULONG uQuality) ;
+bool WINAPI SaveJPG(int NoSnapShot, LPCWSTR szFileName /* With no extension*/, ULONG uQuality) ;
 int WINAPI GetLastFileSuffix();
+bool WINAPI LoadFromFile(int NoSnapShot, LPCWSTR szFileName /* With extension*/);
+LPCWSTR WINAPI GetLastFileName();
 
 int WINAPI KeepChanges(int NoSnapShot, int NoSnapShot2, int ShadeVariation);
 int WINAPI KeepColor(int NoSnapShot, int ColorToFind, int ShadeVariation);

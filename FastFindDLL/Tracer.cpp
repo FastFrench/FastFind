@@ -25,7 +25,7 @@ GNU General Public License for more details.
 
 // Global / static objects
 CTracer Tracer;
-TCHAR CTracer::m_sErrorMsg[1024]="";
+TCHAR CTracer::m_sErrorMsg[1024]=L"";
 
 
 // Class CTracer
@@ -50,11 +50,11 @@ void CTracer::Open(const char* _sFileName, bool _bAppend)
 			time( &ltime);
 
 			errno_t err = ctime_s(timebuf, 26, &ltime);
-			fprintf(m_Fichier,  _T("\n****************************** FastFind %s (c)FastFrench 2013 ********\n\t\tStarted"), FFVersion() );
+			fwprintf(m_Fichier,  _T("\n****************************** FastFind %s (c)FastFrench 2013 ********\n\t\tStarted"), FFVersion() );
 			if (err)
-				fprintf(m_Fichier,  _T("\n"));
+				fwprintf(m_Fichier,  _T("\n"));
 			else
-				fprintf(m_Fichier,  _T(" %26s\n"), timebuf );
+				fwprintf(m_Fichier,  _T(" %26s\n"), timebuf );
 		}
 	else
 		m_Fichier = NULL;
@@ -118,7 +118,7 @@ void CTracer::Format(int Filtre, const TCHAR * format, ...)
 	va_list args;
 		 
 	if ((OutModes & DEBUG_FILE) && m_Fichier) { // File output
-		if ((Filtre & DEBUG_SAME_LINE)==0) _ftprintf(m_Fichier, "%20s|", m_Chrono.GetTime(true));
+		if ((Filtre & DEBUG_SAME_LINE)==0) _ftprintf(m_Fichier, L"%20s|", m_Chrono.GetTime(true));
 		if (Filtre & DEBUG_MSGBOX) { // In this case, replace all \n with \t
 			TCHAR *sMsg = _tcsdup (format);
 			TCHAR *sPos, *sLast;
@@ -146,8 +146,8 @@ void CTracer::Format(int Filtre, const TCHAR * format, ...)
 		if ((Filtre & DEBUG_ERROR)>0)
 			pMsg=m_sErrorMsg;
 		va_start (args, format);
-		vsprintf(pMsg, format, args);
-		MessageBox(0, pMsg, "DEBUG", MB_OK);
+		vswprintf(pMsg, 1024, format, args);
+		MessageBox(0, pMsg, L"DEBUG", MB_OK);
 	}
 	va_end (args);		
 	
@@ -160,5 +160,5 @@ void WINAPI SetDebugMode(int NewMode) { Tracer.ChangeMode(NewMode);}
 
 void WINAPI DebugTrace(LPCTSTR  sString) { Tracer.Format(DEBUG_USER_MESSAGE, sString);}
 void WINAPI DebugError(LPCTSTR sString) { Tracer.Format(DEBUG_USER_ERROR,  sString);}
-LPCTSTR WINAPI GetLastErrorMsg(void) { return CTracer::m_sErrorMsg;}
-LPCTSTR WINAPI FFVersion(void) { return _T("2.2");}
+LPCWSTR WINAPI GetLastErrorMsg(void) { return CTracer::m_sErrorMsg;}
+LPCWSTR WINAPI FFVersion(void) { return _T("2.2");}

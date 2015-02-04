@@ -99,7 +99,7 @@ int WINAPI SnapShot(int aLeft, int aTop, int aRight, int aBottom, int NoSnapShot
 #endif
 #ifdef MYTRACE
 #ifdef DEBUGSNAP
-		char sTitle[128];
+		TCHAR sTitle[128];
 		::GetWindowText(GhWnd, sTitle, 128);
 		Tracer.Format(DEBUG_STREAM_SYSTEM | DEBUG_SAME_LINE, _T("SnapShot( (%d,%d,%d,%d), %d) hWnd:%08X \"%s\" Client Only:%s => "), aLeft, aTop, aRight, aBottom, NoSnapShot, GhWnd, sTitle, GbClientOnly?"true":"false");
 #endif
@@ -130,7 +130,7 @@ int WINAPI SnapShot(int aLeft, int aTop, int aRight, int aBottom, int NoSnapShot
 #ifdef MYTRACE
 			if (Tracer.TextDebug()) 
 			{
-			char sTitle[128];
+			TCHAR sTitle[128];
 			::GetWindowText(GhWnd, sTitle, 128);
 			Tracer.Format(DEBUG_SYSTEM_ERROR, _T("SnapShot(left:%d,top:%d,right:%d,bottom:%d,NoSnapShot:%d) failed : the window \"%s\" %s is not big enough (%d, %d, %d, %d)\n"), aLeft, aTop, aRight, aBottom, NoSnapShot, sTitle, GbClientOnly?"client area":"full window area",  0, 0, FullRect.right-FullRect.left, FullRect.bottom-FullRect.top);
 			}
@@ -152,7 +152,7 @@ int WINAPI SnapShot(int aLeft, int aTop, int aRight, int aBottom, int NoSnapShot
 		if (Tracer.TextDebug()) {
 			RECT rParent={0,0,0,0};
 			::GetWindowRect(GhWnd, &rParent);
-			char sTitle[128];
+			TCHAR sTitle[128];
 			::GetWindowText(GhWnd, sTitle, 128);
 #ifdef MYTRACE
 			Tracer.Format(DEBUG_STREAM_SYSTEM, _T("SnapShot(N°:%d, HWND:0x%08X) => Window Position (Title:\"%s\") = (%d, %d, %d, %d) => (%d, %d, %d, %d)\n"), NoSnapShot, GhWnd, sTitle, rParent.left, rParent.top, rParent.right, rParent.bottom, aLeft, aTop, aRight, aBottom );	
@@ -316,7 +316,7 @@ int * WINAPI GetRawData(int NoSnapShot, int &NbBytes)
 				return -1;
 			return (int)SSGetPixel(x, y);
 		}
-
+	
 int WINAPI GetPixelFromScreen(int x, int y, int NoSnapShot)
 	{
 		return GtSnapShotData[NoSnapShot].GetPixelFromScreen(x, y);
