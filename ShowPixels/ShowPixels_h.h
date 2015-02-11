@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Feb 03 16:32:26 2015
+/* at Wed Feb 11 15:08:10 2015
  */
 /* Compiler settings for ShowPixels.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

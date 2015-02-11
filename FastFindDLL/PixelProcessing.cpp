@@ -1099,9 +1099,9 @@ int WINAPI ColorCount(int ColorToFind, int NoSnapShot, int ShadeVariation)
 		int GreenDelta = ShadeVariation << 8;
 		int BlueDelta = ShadeVariation ;
 		for (i = 0; i < screen_pixel_count; ++i) {
-			if (   ((abs((int) screen_pixel[i] & 0x00FF0000) - RedRef) <=  RedDelta) &&
-				   (abs(((int) screen_pixel[i] & 0x0000FF00) - GreenRef) <=  GreenDelta) &&
-					(abs(((int) screen_pixel[i] & 0x000000FF) - BlueRef) <=  BlueDelta)       )					
+			if (   ((abs(((int) screen_pixel[i] & 0x00FF0000) - RedRef)) <=  RedDelta) &&
+				   (abs((((int) screen_pixel[i] & 0x0000FF00) - GreenRef)) <=  GreenDelta) &&
+					(abs((((int) screen_pixel[i] & 0x000000FF) - BlueRef)) <=  BlueDelta)       )					
 						NbFound++;
 			}
 		}

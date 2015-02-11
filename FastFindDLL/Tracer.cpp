@@ -50,7 +50,7 @@ void CTracer::Open(const char* _sFileName, bool _bAppend)
 			time( &ltime);
 
 			errno_t err = ctime_s(timebuf, 26, &ltime);
-			fwprintf(m_Fichier,  _T("\n****************************** FastFind %s (c)FastFrench 2013 ********\n\t\tStarted"), FFVersion() );
+			fwprintf(m_Fichier,  _T("\n****************************** FastFind %s (c)FastFrench 2015 ********\n\t\tStarted"), FFVersion() );
 			if (err)
 				fwprintf(m_Fichier,  _T("\n"));
 			else
@@ -161,4 +161,4 @@ void WINAPI SetDebugMode(int NewMode) { Tracer.ChangeMode(NewMode);}
 void WINAPI DebugTrace(LPCTSTR  sString) { Tracer.Format(DEBUG_USER_MESSAGE, sString);}
 void WINAPI DebugError(LPCTSTR sString) { Tracer.Format(DEBUG_USER_ERROR,  sString);}
 LPCWSTR WINAPI GetLastErrorMsg(void) { return CTracer::m_sErrorMsg;}
-LPCWSTR WINAPI FFVersion(void) { return _T("2.2");}
+LPCWSTR WINAPI FFVersion(void) { return _T("2.3");}
